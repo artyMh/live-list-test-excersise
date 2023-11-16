@@ -4,8 +4,8 @@ Mine
 
 Major TODO:
 - ~~add logging on backend~~
-- add eslint/rules
-- add zustand
+- ~~add eslint/rules~~
+- ~~add zustand~~
 
 Possible TODO:
 - ~~remove order?~~

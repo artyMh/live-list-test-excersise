@@ -13,7 +13,7 @@ const ErrorFallback = ({ error, resetErrorBoundary }: ErrorFallbackProps): JSX.E
   return (
     <Grid justify="center">
       <Grid.Col span="content">
-        <Alert variant="light" color="red" title="Alert title" icon={icon}>
+        <Alert variant="light" color="red" title="Error" icon={icon}>
           <p>Something went wrong:</p>
           <pre>{error.message}</pre>
           <Button variant="light" color="red" onClick={resetErrorBoundary}>Reload page</Button>
