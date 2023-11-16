@@ -39,7 +39,7 @@ const Header = (): JSX.Element => {
           src={ubiLogo}
         />
 
-        <Title order={5}>Ubiquiti home assignment</Title>
+        <Title order={5} className={classes.title}>Home assignment</Title>
 
         <Group gap={5} visibleFrom="xs">
           {items}

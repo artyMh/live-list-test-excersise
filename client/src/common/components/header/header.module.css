@@ -8,8 +8,12 @@
 .inner {
   height: rem(56px);
   display: flex;
-  justify-content: space-between;
+  gap: 16px;
   align-items: center;
+}
+
+.title {
+  flex-grow: 1; 
 }
 
 .link {
