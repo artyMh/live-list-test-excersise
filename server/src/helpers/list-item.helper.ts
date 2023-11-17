@@ -5,7 +5,7 @@ export function findListItem(id: string, array: ListItemModel[]): ListItemModel 
     if (node.id === id) {
       return node
     }
-    
+
     if (node.children) {
       const child = findListItem(id, node.children)
 
@@ -37,9 +37,30 @@ export function clearListItemChildren(id: string, array: ListItemModel[]): ListI
 export function setCompleteValueForListItem(value: boolean, listItems: ListItemModel[]): void {
   for (const item of listItems) {
     item.completed = value
-    
+
     if (item.children) {
       setCompleteValueForListItem(value, item.children)
     }
   }
+}
+
+export function calculateCost(listItems: ListItemModel[]): void {
+  for (const item of listItems) {
+    if (item.children) {
+      item.cost = calculateListItemCost(item.children, 0)
+    }
+  }
+}
+
+export function calculateListItemCost(listItems: ListItemModel[], sum: number): number {
+  
+  for (const item of listItems) {
+    if (item.children) {
+      item.cost = calculateListItemCost(item.children, sum)
+    }
+
+    sum += item.cost
+  }
+
+  return sum
 }

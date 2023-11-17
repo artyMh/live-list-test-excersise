@@ -5,7 +5,7 @@ import type { Server } from 'node:http'
 import type { ListItemModel, NewListItem, NewListItemChildren, UpdateListItem } from '../models/list.model'
 
 import logger from '../logger'
-import { clearListItemChildren, findListItem, setCompleteValueForListItem } from '../helpers/list-item.helper'
+import { calculateCost, clearListItemChildren, findListItem, setCompleteValueForListItem } from '../helpers/list-item.helper'
 import { ApplicationActionModel, ApplicationActionType } from '../models/application-action.model'
 
 let todoList: ListItemModel[] = [
@@ -80,6 +80,7 @@ export default function createWsServer(app: Server) {
         cost: 0,
       }
       todoList.unshift(newListItem)
+      calculateCost(todoList)
       
       socket.emit('newList', todoList)
       socket.broadcast.emit('newList', todoList)
@@ -93,9 +94,12 @@ export default function createWsServer(app: Server) {
         item.completed = updatedListItem.completed
         item.cost = updatedListItem.cost
 
+        
         if (item.children) {
           setCompleteValueForListItem(updatedListItem.completed, item.children)
         }
+        
+        calculateCost(todoList)
 
         socket.emit('newList', todoList)
         socket.broadcast.emit('newList', todoList)
@@ -124,6 +128,8 @@ export default function createWsServer(app: Server) {
         } else {
           item.children = [ newChildListItem ]
         }
+
+        calculateCost(todoList)
         socket.emit('newList', todoList)
         socket.broadcast.emit('newList', todoList)
       } else {
@@ -138,6 +144,7 @@ export default function createWsServer(app: Server) {
   
     socket.on('deleteItem', (id: string) => {
       todoList = clearListItemChildren(id, todoList)
+      calculateCost(todoList)
       socket.emit('newList', todoList)
       socket.broadcast.emit('newList', todoList)
     })
