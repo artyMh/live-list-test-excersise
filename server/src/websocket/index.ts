@@ -19,13 +19,13 @@ let todoList: ListItemModel[] = [
         id: uuidv4(),
         completed: false,
         label: 'Cucumber',
-        cost: 2.10
+        cost: 1.80
       },
       {
         id: uuidv4(),
         completed: false,
         label: 'Potato',
-        cost: 1.50
+        cost: 1.40
       },
     ]
   },
@@ -33,25 +33,25 @@ let todoList: ListItemModel[] = [
     id: uuidv4(),
     completed: false,
     label: 'Fruits',
-    cost: 2,
+    cost: 2.80,
     children: [
       {
         id: uuidv4(),
         completed: false,
         label: 'Banana',
-        cost: 1.50,
+        cost: 1.00,
       },
       {
         id: uuidv4(),
         completed: false,
         label: 'Orange',
-        cost: 1.62,
+        cost: 0.50,
       },
       {
         id: uuidv4(),
         completed: false,
         label: 'Melone',
-        cost: 3.30,
+        cost: 1.30,
       },
     ]
   }

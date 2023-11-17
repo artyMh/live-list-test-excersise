@@ -40,7 +40,7 @@ const ListItemControls = ({ listItem, updateItem, deleteItem, createChildrenItem
         <IconPlus onClick={openAddChildrenModal} />
       </ActionIcon>
       <Badge color="orange" size="md" variant="light" ml="xs" mr="xs">
-        € {listItem.cost}
+        € {listItem.cost.toFixed(2)}
       </Badge>
       <Box ml="auto">
         {listItem.label}

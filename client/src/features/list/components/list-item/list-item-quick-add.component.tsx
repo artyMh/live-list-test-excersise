@@ -3,7 +3,7 @@ import { useForm } from '@mantine/form'
 
 import type { NewListItem } from 'backend-models/list.model'
 
-import { labelRegexValidator } from '../../../../helpers/list.helper'
+import { labelValidator } from '../../../../helpers/list.helper'
 
 export type QuickAddItemProps = {
   onAddItem: (newItem: NewListItem) => void
@@ -20,7 +20,7 @@ const QuickAddListItem = ({ onAddItem }: QuickAddItemProps): JSX.Element => {
     },
 
     validate: {
-      label: (value: string) => (labelRegexValidator.test(value) ? null : 'Label name contains special symbols'),
+      label: (value: string) => labelValidator(value),
     },
   })
 

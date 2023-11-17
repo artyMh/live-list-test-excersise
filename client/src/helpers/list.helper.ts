@@ -1,9 +1,17 @@
 import { ListItemModel } from 'backend-models/list.model'
 import { ListItemFilter } from 'src/common/models/list-item.model'
 
-export const labelRegexValidator = /^[A-Za-z0-9\s]+$/
+export function labelValidator(labelValue: string): string | null {
+  if (!/^[A-Za-z0-9\s]+$/.test(labelValue)) {
+    return 'Label name should contain only letters and numbers'
+  }
 
-export const costRegexValidator = /^[0-9]+$/
+  if (labelValue.length > 26) {
+    return 'Label name should not be longer than 26 symbols'
+  }
+
+  return null
+}
 
 export function filterList(data: ListItemModel[], filterType: ListItemFilter): ListItemModel[] {
   if (filterType === 'all') {

@@ -4,7 +4,7 @@ import { IconEdit, IconPlus, IconCurrencyEuro } from '@tabler/icons-react'
 
 import type { ListItemModel, NewListItemChildren } from 'backend-models/list.model'
 
-import { labelRegexValidator } from '../../../../helpers/list.helper'
+import { labelValidator } from '../../../../helpers/list.helper'
 
 export enum EditItemModalMode {
   EDIT_ITEM = 'edit_item',
@@ -31,7 +31,7 @@ const EditItemModal = ({ opened, onClose, mode, listItem, updateItem, addChildre
     },
 
     validate: {
-      label: (value: string) => (labelRegexValidator.test(value) ? null : 'Label name contains special symbols'),
+      label: (value: string) => labelValidator(value),
     },
   })
 
@@ -79,6 +79,7 @@ const EditItemModal = ({ opened, onClose, mode, listItem, updateItem, addChildre
           label="Cost"
           mt="md"
           decimalScale={2}
+          fixedDecimalScale
           leftSection={<IconCurrencyEuro />}
           {...form.getInputProps('cost')}
         />
