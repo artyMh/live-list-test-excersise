@@ -1,26 +1,33 @@
-Mine
-- notifications
-- error boundaries
+# Technical test
 
-Major TODO:
-- ~~add logging on backend~~
-- ~~add eslint/rules~~
-- ~~add zustand~~
+## How to launch
 
-Possible TODO:
-- ~~remove order?~~
-- add import eslint rules
-- make about page
-- update `package.json` (names, links to repos etc)
-- dualism od edit/create modal
-- make save/load list from button at fe to be
-- rich text editor?
-- indicator of connection (green/red)
-- .env FE io('http://localhost:4000')
-- add `memo()` for components?
+* Install dependencies `npm i`
+* Run backend `npm run start-server`
+* Run frontend `npm run start-client`
 
-What could be better:
-- Add proper BAL/DAL models
-- Share models between fe/be better
-- Rework list item helper at backend as a service to store list logic together
-- Add state management library for frontend
+Default url for client is http://localhost:3000
+
+Details of stories implemented located here http://localhost:3000/about
+
+## Stack
+
+### Frontend
+
+* TypeScript + ESLint
+* Vite
+* React
+* Zustand
+* Socket.IO
+
+### Backend
+
+* TypeScript + ESLint
+* Express
+* Socket.IO
+
+## What could be better
+
+* Add proper BAL/DAL models
+* Share models between FE/BE better
+* Rework list item helper at backend as a service to store list logic together

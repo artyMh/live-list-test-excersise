@@ -13,7 +13,7 @@ export type ListProps = {
 
 const List = ({ listData, updateItem, deleteItem, createChildrenItem }: ListProps): JSX.Element => {
   return (
-    <Card shadow="sm" padding="lg" radius="md" mt="xl" withBorder>
+    <Card shadow="sm" padding="lg" radius="md" mt="xs" withBorder>
       {listData.map(item =>
         <ListItem
           key={item.id}

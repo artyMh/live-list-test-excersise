@@ -10,10 +10,12 @@ import { NotificationType, successNotification } from '../../helpers/notificatio
 import { filterList } from '../../helpers/list.helper'
 
 export type ListStore = {
+  connectedToWs: boolean
   listData: ListItemModel[]
   filterValue: ListItemFilter
   listDataCache: ListItemModel[]
 
+  setConnectedValue: (connectedToWs: boolean) => void
   setListData: (listData: ListItemModel[]) => void
   setFilterValue: (filterValue: ListItemFilter) => void
   setListDataCache: (listData: ListItemModel[]) => void
@@ -24,14 +26,16 @@ export type ListStore = {
   createChildrenListItem: (newChildrenItem: NewListItemChildren) => void
 }
 
-const socket = io('http://localhost:4000')
+const socket = io(import.meta.env.VITE_WEBSOCKET_SERVER_URL)
 
 export const useListStore = create<ListStore>()((set) => {
   const store: ListStore = {
+    connectedToWs: false,
     listData: [],
     filterValue: 'all',
     listDataCache: [],
   
+    setConnectedValue: (connectedToWs: boolean) => set(() => ({ connectedToWs })),
     setListData: (listData: ListItemModel[]) => set(() => ({ listData })),
     setListDataCache: (listDataCache: ListItemModel[]) => set(() => ({ listDataCache })),
     setFilterValue: (filterValue: ListItemFilter) => set((state) => ({
@@ -51,12 +55,19 @@ export const useListStore = create<ListStore>()((set) => {
     createChildrenListItem: (newChildrenItem: NewListItemChildren) => {
       socket.emit('createItemChildren', newChildrenItem)
     },
-    
   }
 
+  socket.on('connect', () => {
+    store.setConnectedValue(socket.connected)
+    notifications.show(successNotification({
+      type: 'success',
+      title: 'Hoorai!',
+      message: 'Successfully connected!',
+      autoClose: 4000,
+    }))
+  })
   
   socket.on('newList', (data: ListItemModel[]) => {
-    console.log('[Store] List arrived',data)
     store.setListData(data)
     store.setListDataCache(structuredClone(data))
    
@@ -82,6 +93,17 @@ export const useListStore = create<ListStore>()((set) => {
       type,
       title,
       message,
+      autoClose: 4000,
+    }))
+  })
+
+  socket.on('disconnect', () => {
+    store.setConnectedValue(socket.connected)
+
+    notifications.show(successNotification({
+      type: 'error',
+      title: 'Server error',
+      message: 'Disconnected',
       autoClose: 4000,
     }))
   })

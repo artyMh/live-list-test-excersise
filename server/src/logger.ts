@@ -8,7 +8,7 @@ const logFormat = winston.format.printf(function(info) {
     hour: '2-digit',
     minute: '2-digit',
     second: '2-digit',
-    fractionalSecondDigits: 3,
+    // fractionalSecondDigits: 3, // causing runtime error on node run, in dev mode ecerything is ok (strange)
     hour12: false,
   })
 
