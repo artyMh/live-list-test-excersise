@@ -31,3 +31,4 @@ Details of stories implemented located here http://localhost:3000/about
 * Add proper BAL/DAL models
 * Share models between FE/BE better
 * Rework list item helper at backend as a service to store list logic together
+* Add docker

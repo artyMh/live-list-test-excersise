@@ -39,12 +39,12 @@ const ListItemControls = ({ listItem, updateItem, deleteItem, createChildrenItem
       <ActionIcon color="green" variant="light" size="sm" mr="xs">
         <IconPlus onClick={openAddChildrenModal} />
       </ActionIcon>
-      <Box>
-        {listItem.label}
-      </Box>
-      <Badge color="orange" size="sm" variant="light">
+      <Badge color="orange" size="md" variant="light" ml="xs" mr="xs">
         € {listItem.cost}
       </Badge>
+      <Box ml="auto">
+        {listItem.label}
+      </Box>
       <EditItemModal
         opened={addChildrenModalOpened}
         onClose={closeAddChildrenModal}

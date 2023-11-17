@@ -4,7 +4,7 @@
   "description": "Test excersise",
   "scripts": {
     "start-client": "npm run start:dev -w client",
-    "start-server": "npm run start -w server"
+    "start-server": "npm run start:dev -w server"
   },
   "author": "Artjoms Mihailovs",
   "private": true,

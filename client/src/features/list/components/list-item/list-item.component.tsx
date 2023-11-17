@@ -1,44 +1,59 @@
 import { FormEvent } from 'react'
-import { List as MantineList, Checkbox, /*ActionIcon*/ } from '@mantine/core'
-// import { IconPlus, IconTrash } from '@tabler/icons-react'
+import { List as MantineList, Checkbox } from '@mantine/core'
 
-import type { ListItemModel, NewListItemChildren, UpdateListItem } from 'backend-models/list.model'
+import { useListStore } from '../../list.store'
+
+import type { ListItemModel } from 'backend-models/list.model'
 import ListItemControls from './list-item-controls.component'
+
+import classes from './list-item.module.css'
 
 export type ListProps = {
   listItem: ListItemModel
-  updateItem: (updatedItem: UpdateListItem) => void
-  deleteItem: (id: string) => void
-  createChildrenItem: (newChildren: NewListItemChildren) => void
   padding?: boolean
 }
 
-const ListItem = ({ listItem, padding = false, updateItem, deleteItem, createChildrenItem }: ListProps): JSX.Element => {
+const ListItem = ({ listItem, padding = false }: ListProps): JSX.Element => {
+  const updateListItem = useListStore(state => state.updateListItem)
+  const deleteListItem = useListStore(state => state.deleteListItem)
+  const createChildrenListItem = useListStore(state => state.createChildrenListItem)
 
   const onCompleteChange = (e: FormEvent<HTMLInputElement>) => {
-    updateItem({ ...listItem, completed: e.currentTarget.checked })
+    updateListItem({ ...listItem, completed: e.currentTarget.checked })
   }
 
   const itemControls = (
     <ListItemControls
       listItem={listItem}
-      updateItem={updateItem}
-      deleteItem={deleteItem}
-      createChildrenItem={createChildrenItem}
+      updateItem={updateListItem}
+      deleteItem={deleteListItem}
+      createChildrenItem={createChildrenListItem}
     />
   )
 
+  const listStyles = {
+    itemWrapper: { width: '100%' },
+    itemLabel: { width: '100%' },
+  }
+
+  const checkboxLabelStyles = {
+    body: { width: '100%' },
+    labelWrapper: { width: '100%' },
+  }
+
   return (  
     <MantineList
-      spacing="xs"
+      styles={listStyles}
+      className={classes.list}
       size="sm"
       center
       withPadding={padding}
       listStyleType="none"
     >
-      <MantineList.Item pt="xs">
+      <MantineList.Item>
         <Checkbox
           size="md"
+          styles={checkboxLabelStyles}
           checked={listItem.completed}
           label={itemControls}
           onChange={onCompleteChange}
@@ -49,9 +64,6 @@ const ListItem = ({ listItem, padding = false, updateItem, deleteItem, createChi
           <ListItem
             key={childrenItem.id}
             listItem={childrenItem}
-            updateItem={updateItem}
-            deleteItem={deleteItem}
-            createChildrenItem={createChildrenItem}
             padding
           />) :
         null

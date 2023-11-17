@@ -1,4 +1,4 @@
-// import { memo } from 'react'
+import { memo } from 'react'
 import { Alert, Button, Grid } from '@mantine/core'
 import { IconInfoCircle } from '@tabler/icons-react'
 
@@ -7,7 +7,7 @@ type ErrorFallbackProps = {
   resetErrorBoundary: () => void
 }
 
-const ErrorFallback = ({ error, resetErrorBoundary }: ErrorFallbackProps): JSX.Element => {
+const ErrorFallback = memo(({ error, resetErrorBoundary }: ErrorFallbackProps): JSX.Element => {
   const icon = <IconInfoCircle/>
 
   return (
@@ -22,7 +22,8 @@ const ErrorFallback = ({ error, resetErrorBoundary }: ErrorFallbackProps): JSX.E
     </Grid>
     
   )
-}
+})
+
+ErrorFallback.displayName = 'ErrorFallback'
 
 export default ErrorFallback
-// export default memo(ErrorFallback)
