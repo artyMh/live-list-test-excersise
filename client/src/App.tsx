@@ -1,6 +1,6 @@
 
 import { ErrorBoundary } from 'react-error-boundary'
-import { Container, Grid } from '@mantine/core'
+import { Center, Container, Grid } from '@mantine/core'
 
 import Header from './common/components/header/header.component'
 import ErrorFallback from './common/components/error-boundary.component'
@@ -18,11 +18,13 @@ function App() {
           onReset={reloadPage}
         >
           <Container mt="md">
-            <Grid>
-              <Grid.Col span="auto">
-                <AppRoutes />
-              </Grid.Col>
-            </Grid>
+            <Center>
+              <Grid>
+                <Grid.Col span="auto">
+                  <AppRoutes />
+                </Grid.Col>
+              </Grid>
+            </Center>
           </Container>
         </ErrorBoundary>
       </div>

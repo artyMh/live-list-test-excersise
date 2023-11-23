@@ -1,7 +1,6 @@
 import { Center, Container, Grid, List, ThemeIcon, Title, rem } from '@mantine/core'
 import { IconCircleCheck, IconUser } from '@tabler/icons-react'
 
-
 const AboutPage = (): JSX.Element => {
 
   return(

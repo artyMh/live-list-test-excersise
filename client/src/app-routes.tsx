@@ -1,13 +1,16 @@
+import { Suspense, lazy } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 import { RoutesMap } from './common/models/routes-map'
-import HomePage from './pages/home/home.page'
-import AboutPage from './pages/about/about.page'
+import { Loader } from '@mantine/core'
+
+const HomePage = lazy(() => import('./pages/home/home.page'))
+const AboutPage = lazy(() => import('./pages/about/about.page'))
 
 const AppRoutes = (): JSX.Element => (
   <Routes>
-    <Route path={RoutesMap.HOME} element={<HomePage/>} />
-    <Route path={RoutesMap.ABOUT} element={<AboutPage/>} />
+    <Route path={RoutesMap.HOME} element={<Suspense fallback={<Loader color="gray" />}><HomePage /></Suspense>} />
+    <Route path={RoutesMap.ABOUT} element={<Suspense fallback={<Loader color="gray" />}><AboutPage /></Suspense>} />
   </Routes>
 )
 
