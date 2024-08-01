@@ -2,8 +2,8 @@ import { Center, Container, Grid, List, ThemeIcon, Title, rem } from '@mantine/c
 import { IconCircleCheck, IconUser } from '@tabler/icons-react'
 import { ErrorBoundary, type FallbackProps } from 'react-error-boundary'
 
-import ErrorFallback from 'src/common/components/error-boundary.component'
-import { reloadPage } from 'src/helpers/common.helper'
+import ErrorFallback from '../../common/components/error-boundary.component'
+import { reloadPage } from '../../helpers/common.helper'
 
 const AboutPage = (): JSX.Element => {
   const errorFallback = (props: FallbackProps) => <ErrorFallback {...props} errorText='Something happened on about page'/>
