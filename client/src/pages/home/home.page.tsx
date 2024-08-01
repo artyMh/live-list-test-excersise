@@ -2,9 +2,9 @@ import { Container, Grid, rem } from '@mantine/core'
 
 import { ErrorBoundary, type FallbackProps } from 'react-error-boundary'
 
-import ErrorFallback from 'src/common/components/error-boundary.component'
-import { reloadPage } from 'src/helpers/common.helper'
-import ListFeature from 'src/features/list/list.feature'
+import ErrorFallback from '../../common/components/error-boundary.component'
+import { reloadPage } from '../../helpers/common.helper'
+import ListFeature from '../../features/list/list.feature'
 
 const HomePage = (): JSX.Element => {
   const errorFallback = (props: FallbackProps) => <ErrorFallback {...props} errorText='Something happened on list page'/>
