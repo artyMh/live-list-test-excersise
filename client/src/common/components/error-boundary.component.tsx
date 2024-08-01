@@ -5,16 +5,17 @@ import { IconInfoCircle } from '@tabler/icons-react'
 type ErrorFallbackProps = {
   error: Error
   resetErrorBoundary: () => void
+  errorText?: string
 }
 
-const ErrorFallback = memo(({ error, resetErrorBoundary }: ErrorFallbackProps): JSX.Element => {
+const ErrorFallback = ({ error, resetErrorBoundary, errorText }: ErrorFallbackProps): JSX.Element => {
   const icon = <IconInfoCircle/>
 
   return (
     <Grid justify="center">
       <Grid.Col span="content">
         <Alert variant="light" color="red" title="Error" icon={icon}>
-          <p>Something went wrong:</p>
+          {errorText ?? <p>Something went wrong:</p>}
           <pre>{error.message}</pre>
           <Button variant="light" color="red" onClick={resetErrorBoundary}>Reload page</Button>
         </Alert>
@@ -22,8 +23,6 @@ const ErrorFallback = memo(({ error, resetErrorBoundary }: ErrorFallbackProps): 
     </Grid>
     
   )
-})
+}
 
-ErrorFallback.displayName = 'ErrorFallback'
-
-export default ErrorFallback
+export default memo(ErrorFallback)

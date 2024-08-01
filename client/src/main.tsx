@@ -6,7 +6,7 @@ import { Notifications } from '@mantine/notifications'
 
 import '@mantine/core/styles.css'
 import '@mantine/notifications/styles.css'
-import App from './App.tsx'
+import App from './app.tsx'
 
 const theme = createTheme({})
 

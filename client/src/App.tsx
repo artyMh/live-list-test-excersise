@@ -2,12 +2,12 @@
 import { ErrorBoundary } from 'react-error-boundary'
 import { Center, Container, Grid } from '@mantine/core'
 
-import Header from './common/components/header/header.component'
-import ErrorFallback from './common/components/error-boundary.component'
+import Header from 'src/common/components/header/header.component'
+import ErrorFallback from 'src/common/components/error-boundary.component'
 import AppRoutes from './app-routes'
+import { reloadPage } from './helpers/common.helper'
 
-function App() {
-  const reloadPage = () => window.location.reload()
+export default function App() {
 
   return (
     <>
@@ -32,4 +32,3 @@ function App() {
   )
 }
 
-export default App
