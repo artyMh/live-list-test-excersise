@@ -2,7 +2,7 @@ import {  Link,  useLocation } from 'react-router-dom'
 import { Burger, Container, Group, Image, Title } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 
-import { RoutesMap } from '../../models/routes-map'
+import { RoutesMap } from '../../../routing/routes-map'
 
 import ubiLogo from '/ubiquiti_logo.svg'
 import classes from './header.module.css'

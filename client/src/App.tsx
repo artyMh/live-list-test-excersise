@@ -4,7 +4,7 @@ import { Center, Container, Grid } from '@mantine/core'
 
 import Header from './common/components/header/header.component'
 import ErrorFallback from './common/components/error-boundary.component'
-import AppRoutes from './app-routes'
+import AppRoutes from './routing/app-routes'
 import { reloadPage } from './helpers/common.helper'
 
 export default function App() {
