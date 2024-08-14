@@ -4,6 +4,7 @@ import { ErrorBoundary, type FallbackProps } from 'react-error-boundary'
 
 import ErrorFallback from '../../common/components/error-boundary.component'
 import { reloadPage } from '../../helpers/common.helper'
+import { pointsDone, additionalPointsDone } from '../../common/data/about.data.json'
 
 const AboutPage = (): JSX.Element => {
   const errorFallback = (props: FallbackProps) => <ErrorFallback {...props} errorText='Something happened on about page'/>
@@ -28,32 +29,21 @@ const AboutPage = (): JSX.Element => {
                   </ThemeIcon>
                 }
               >
-                <List.Item
-                  icon={
-                    <ThemeIcon color="blue" size={24} radius="xl">
-                      <IconUser style={{ width: rem(16), height: rem(16) }} />
-                    </ThemeIcon>
-                  }
-                >
-                  Notifications based on socket state & actions
-                </List.Item>
-                <List.Item
-                  icon={
-                    <ThemeIcon color="blue" size={24} radius="xl">
-                      <IconUser style={{ width: rem(16), height: rem(16) }} />
-                    </ThemeIcon>
-                  }
-                >
-                  Error boundary to give user proper UX about errors
-                </List.Item>
-                <List.Item>I as a user can create to-do items, such as a grocery list</List.Item>
-                <List.Item>I as another user can collaborate in real-time with user - so that we can (for example) edit our family shopping-list together</List.Item>
-                <List.Item>I as a user can mark to-do items as “done” - so that I can avoid clutter and focus on things that are still pending</List.Item>
-                <List.Item>I as a user can filter the to-do list and view items that were marked as done - so that I can retrospect on my prior progress</List.Item>
-                <List.Item>I as a user can add sub-tasks to my to-do items - so that I could make logical groups of tasks and see their overall progress</List.Item>
-                <List.Item>I as a user can specify cost/price for a task or a subtask - so that I can track my expenses / project cost</List.Item>
-                <List.Item>I as a user can see the sum of the subtasks aggregated in the parent task - so that in my shopping list I can see what contributes to the overall sum.</List.Item>
-                <List.Item>I as a user can make infinite nested levels of subtasks</List.Item>
+                {pointsDone.map(({ title }, index) => <List.Item key={index}>{title}</List.Item>)}
+              </List>
+
+              <Title order={4} mt="xl" mb="md">Additional stories done:</Title>
+              <List
+                spacing="lg"
+                size="sm"
+                center
+                icon={
+                  <ThemeIcon color="blue" size={24} radius="xl">
+                    <IconUser style={{ width: rem(16), height: rem(16) }} />
+                  </ThemeIcon>
+                }
+              >
+                {additionalPointsDone.map(({ title }, index) => <List.Item key={index}>{title}</List.Item>)}
               </List>
             </Grid.Col>
           </Grid>
