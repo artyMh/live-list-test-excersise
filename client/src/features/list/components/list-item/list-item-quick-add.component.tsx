@@ -5,9 +5,9 @@ import type { NewListItem } from 'backend-models/list.model'
 
 import { labelValidator } from '../../../../helpers/list.helper'
 
-export type QuickAddItemProps = {
+export type QuickAddItemProps = Readonly<{
   onAddItem: (newItem: NewListItem) => void
-}
+}>
 
 type QuickAddListItemForm = {
   label: string

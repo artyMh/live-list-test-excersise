@@ -9,9 +9,9 @@ const questionIcon = <IconQuestionMark style={{ width: rem(20), height: rem(20) 
 
 export type NotificationType = 'success' | 'error' | 'info'
 
-export type NotificationExpandedData = NotificationData & {
+export type NotificationExpandedData = NotificationData & Readonly<{
   type: NotificationType
-}
+}>
 
 export function successNotification(notificationData: NotificationExpandedData): NotificationData {
   let icon: JSX.Element

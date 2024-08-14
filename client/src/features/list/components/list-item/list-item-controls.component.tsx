@@ -5,12 +5,12 @@ import { IconPlus, IconTrash, IconEdit } from '@tabler/icons-react'
 import { ListItemModel, NewListItemChildren, UpdateListItem } from 'backend-models/list.model'
 import EditItemModal, { EditItemModalMode } from './list-item-edit-modal.component'
 
-export type ListItemControlsProps = {
+export type ListItemControlsProps = Readonly<{
   listItem: ListItemModel
   updateItem: (updatedItem: UpdateListItem) => void
   deleteItem: (id: string) => void
   createChildrenItem: (newChildren: NewListItemChildren) => void
-}
+}>
 
 const ListItemControls = ({ listItem, updateItem, deleteItem, createChildrenItem }: ListItemControlsProps): JSX.Element => {
   const [editModalOpened, { open: openEditModal, close: closeEditModal }] = useDisclosure(false)

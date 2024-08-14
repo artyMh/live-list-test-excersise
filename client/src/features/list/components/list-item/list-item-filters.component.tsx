@@ -3,9 +3,9 @@ import { Center, Container, Grid, SegmentedControl, SegmentedControlItem } from 
 
 import { ListItemFilter } from 'src/common/models/list-item.model'
 
-export type ListItemFiltersProps = {
+export type ListItemFiltersProps = Readonly<{
   onFilterChange: (filterValue: ListItemFilter) => void
-}
+}>
 
 const ListItemFilters = ({ onFilterChange }: ListItemFiltersProps): JSX.Element => {
   const [filterFalue, setFilter] = useState('all')

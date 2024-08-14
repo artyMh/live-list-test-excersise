@@ -4,9 +4,9 @@ import type { ListItemModel } from 'backend-models/list.model'
 
 import ListItem from './list-item/list-item.component'
 
-export type ListProps = {
+export type ListProps = Readonly<{
   listData: ListItemModel[]
-}
+}>
 
 const List = ({ listData }: ListProps): JSX.Element => {
   return (

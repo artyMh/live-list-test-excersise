@@ -8,10 +8,10 @@ import ListItemControls from './list-item-controls.component'
 
 import classes from './list-item.module.css'
 
-export type ListProps = {
+export type ListProps = Readonly<{
   listItem: ListItemModel
   padding?: boolean
-}
+}>
 
 const ListItem = ({ listItem, padding = false }: ListProps): JSX.Element => {
   const updateListItem = useListStore(state => state.updateListItem)

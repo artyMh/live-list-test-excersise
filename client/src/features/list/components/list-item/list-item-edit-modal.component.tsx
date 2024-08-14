@@ -11,12 +11,12 @@ export enum EditItemModalMode {
   ADD_ITEM_CHILDREN = 'add_item_children'
 }
 
-export type EditItemModalProps = ModalProps & {
+export type EditItemModalProps = ModalProps & Readonly<{
   mode: EditItemModalMode
   listItem: ListItemModel
   updateItem: (updatedItem: ListItemModel) => void
   addChildrenToItem: (newChildren: NewListItemChildren) => void
-}
+}>
 
 type ListItemForm = Pick<ListItemModel, 'id' | 'completed' | 'label' | 'cost'>
 
