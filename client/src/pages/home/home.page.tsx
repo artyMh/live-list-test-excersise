@@ -5,6 +5,7 @@ import { ErrorBoundary, type FallbackProps } from 'react-error-boundary'
 import ErrorFallback from '../../common/components/error-boundary.component'
 import { reloadPage } from '../../helpers/common.helper'
 import ListFeature from '../../features/list/list.feature'
+import ConnectionStatusFeature from '../../features/connection-status/connection-status.feature'
 
 const HomePage = (): JSX.Element => {
   const errorFallback = (props: FallbackProps) => <ErrorFallback {...props} errorText='Something happened on list page'/>
@@ -17,6 +18,7 @@ const HomePage = (): JSX.Element => {
       <Container w={rem(500)}>
         <Grid>
           <Grid.Col span={12}>
+            <ConnectionStatusFeature />
             <ListFeature />
           </Grid.Col>
         </Grid>

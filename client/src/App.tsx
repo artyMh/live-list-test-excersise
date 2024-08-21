@@ -4,10 +4,13 @@ import { Center, Container, Grid } from '@mantine/core'
 
 import Header from './common/components/header/header.component'
 import ErrorFallback from './common/components/error-boundary.component'
+import { useLiveConnectionStore } from './common/store/live-connection.store'
 import AppRoutes from './routing/app-routes'
 import { reloadPage } from './helpers/common.helper'
 
 export default function App() {
+  const initStore = useLiveConnectionStore(store => store.init)
+  initStore()
 
   return (
     <>

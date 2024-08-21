@@ -4,7 +4,7 @@ import { useDisclosure } from '@mantine/hooks'
 
 import { RoutesMap } from '../../../routing/routes-map'
 
-import ubiLogo from '/ubiquiti_logo.svg'
+import liveIcon from '/live-icon.svg'
 import classes from './header.module.css'
 
 const links = [
@@ -36,7 +36,7 @@ const Header = (): JSX.Element => {
           radius="md"
           w="auto"
           fit="contain"
-          src={ubiLogo}
+          src={liveIcon}
         />
 
         <Title order={5} className={classes.title}>Home assignment</Title>
