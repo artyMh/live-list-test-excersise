@@ -1,4 +1,6 @@
 import { Card } from '@mantine/core'
+import { Alert } from '@mantine/core'
+import { IconInfoCircle } from '@tabler/icons-react'
 
 import type { ListItemModel } from 'backend-models/list.model'
 
@@ -11,12 +13,18 @@ export type ListProps = Readonly<{
 const List = ({ listData }: ListProps): JSX.Element => {
   return (
     <Card shadow="sm" padding="lg" radius="md" mt="xs" withBorder>
-      {listData.map(item =>
-        <ListItem
-          key={item.id}
-          listItem={item}
-        />
-      )}
+      {listData.length > 0 ? 
+        listData.map(item =>
+          <ListItem
+            key={item.id}
+            listItem={item}
+          />
+        ) :
+        <Alert variant="light" color="yellow" icon={<IconInfoCircle/>}>
+          No items
+        </Alert>
+      }
+      
     </Card>
   )
 }

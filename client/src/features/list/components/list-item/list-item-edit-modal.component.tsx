@@ -50,13 +50,13 @@ const EditItemModal = ({ opened, onClose, mode, listItem, updateItem, addChildre
   if (isEditMode) {
     title = (
       <>
-        <IconEdit></IconEdit>Edit: {listItem.label}
+        <IconEdit />Edit: {listItem.label}
       </>
     )
   } else {
     title = (
       <>
-        <IconPlus></IconPlus>Add children to: {listItem.label}
+        <IconPlus />Add item to: {listItem.label}
       </>
     )
   }

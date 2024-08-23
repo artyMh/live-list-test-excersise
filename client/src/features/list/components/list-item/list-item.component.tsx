@@ -1,11 +1,10 @@
 import { FormEvent } from 'react'
 import { List as MantineList, Checkbox } from '@mantine/core'
 
-import { useListStore } from '../../list.store'
-
 import type { ListItemModel } from 'backend-models/list.model'
-import ListItemControls from './list-item-controls.component'
 
+import { useLiveConnectionStore } from '../../../../common/store/live-connection.store'
+import ListItemControls from './list-item-controls.component'
 import classes from './list-item.module.css'
 
 export type ListProps = Readonly<{
@@ -14,9 +13,9 @@ export type ListProps = Readonly<{
 }>
 
 const ListItem = ({ listItem, padding = false }: ListProps): JSX.Element => {
-  const updateListItem = useListStore(state => state.updateListItem)
-  const deleteListItem = useListStore(state => state.deleteListItem)
-  const createChildrenListItem = useListStore(state => state.createChildrenListItem)
+  const updateListItem = useLiveConnectionStore(state => state.updateListItem)
+  const deleteListItem = useLiveConnectionStore(state => state.deleteListItem)
+  const createChildrenListItem = useLiveConnectionStore(state => state.createChildrenListItem)
 
   const onCompleteChange = (e: FormEvent<HTMLInputElement>) => {
     updateListItem({ ...listItem, completed: e.currentTarget.checked })

@@ -1,12 +1,12 @@
-import { create } from 'zustand'
+import { create, StateCreator } from 'zustand'
 import { io } from 'socket.io-client'
-import { notifications } from '@mantine/notifications'
 
 import type { Socket } from 'socket.io-client'
 import type { ListItemModel, NewListItem, NewListItemChildren, UpdateListItem } from 'backend-models/list.model'
 import type { ApplicationActionModel } from 'backend-models/application-action.model'
+import type { NotificationType } from 'src/helpers/notifications.helper'
 
-import { NotificationType, successNotification } from '../../helpers/notifications.helper'
+import DefinedGlobalNotificationsService from '../services/defined-global-notifications.service'
 
 type LiveConnectionState = {
   connectedToWs: boolean
@@ -24,16 +24,16 @@ type LiveConnectionActions = {
   createChildrenListItem: (newChildrenItem: NewListItemChildren) => void
 }
 
-export type LiveConnectionStore = LiveConnectionState & LiveConnectionActions
+type LiveConnectionStore = LiveConnectionState & LiveConnectionActions
 
 const initialState: LiveConnectionState = {
   connectedToWs: false,
   listData: []
 }
 
-const socket: Socket = io(import.meta.env.VITE_WEBSOCKET_SERVER_URL)
+const createLiveConnectionSlice: StateCreator<LiveConnectionStore> = (set) => {
+  const socket: Socket = io(import.meta.env.VITE_WEBSOCKET_SERVER_URL)
 
-export const useLiveConnectionStore = create<LiveConnectionStore>()((set) => {
   const store: LiveConnectionStore = {
     connectedToWs: false,
     listData: [],
@@ -58,23 +58,12 @@ export const useLiveConnectionStore = create<LiveConnectionStore>()((set) => {
 
   socket.on('connect', () => {
     store.setConnectedValue(socket.connected)
-    notifications.show(successNotification({
-      type: 'success',
-      title: 'Hoorai!',
-      message: 'Successfully connected!',
-      autoClose: 4000,
-    }))
+    DefinedGlobalNotificationsService.connected()
   })
   
   socket.on('newList', (data: ListItemModel[]) => {
     store.setListData(data)
-   
-    notifications.show(successNotification({
-      type: 'info',
-      title: 'Update',
-      message: 'New list arrived! ',
-      autoClose: 4000,
-    }))
+    DefinedGlobalNotificationsService.newListReceived()
   })
 
   socket.on('applicationNotification', (data: ApplicationActionModel) => {
@@ -87,26 +76,17 @@ export const useLiveConnectionStore = create<LiveConnectionStore>()((set) => {
       title = 'Server error'
     }
 
-    notifications.show(successNotification({
-      type,
-      title,
-      message,
-      autoClose: 4000,
-    }))
+    DefinedGlobalNotificationsService.applicationNotification(type,  title, message)
   })
 
   socket.on('disconnect', () => {
     store.setConnectedValue(socket.connected)
-
-    notifications.show(successNotification({
-      type: 'error',
-      title: 'Server error',
-      message: 'Disconnected',
-      autoClose: 4000,
-    }))
+    DefinedGlobalNotificationsService.disconnected()
   })
 
   socket.emit('getList')
 
   return store
-})
+}
+
+export const useLiveConnectionStore = create<LiveConnectionStore>()(createLiveConnectionSlice)
