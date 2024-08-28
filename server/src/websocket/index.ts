@@ -7,6 +7,7 @@ import type { ListItemModel, NewListItem, NewListItemChildren, UpdateListItem } 
 import logger from '../logger'
 import { calculateCost, clearListItemChildren, findListItem, setCompleteValueForListItem } from '../helpers/list-item.helper'
 import { ApplicationActionModel, ApplicationActionType } from '../models/application-action.model'
+import UsersService from '../services/users.service'
 
 let todoList: ListItemModel[] = [
   {
@@ -57,6 +58,8 @@ let todoList: ListItemModel[] = [
   }
 ]
 
+const usersService = new UsersService()
+
 export default function createWsServer(app: Server) {
   const socketIO = new SocketIOServer(app, {
     cors: {
@@ -64,12 +67,35 @@ export default function createWsServer(app: Server) {
     }
   })
 
-  socketIO.on('connection', (socket) => {
-    logger.info(`[Socket:connection]: ${socket.id} user just connected!`)
-    socket.broadcast.emit('applicationNotification', { type: ApplicationActionType.INFO, description: 'New user joined'})
+  // SocketIO middleware
+  socketIO.use((socket, next) => {
+    const username = socket.handshake.auth.username
 
-    socket.on('getList', () => {
+    if (!username) {
+      return next(new Error('Invalid username'))
+    }
+
+    // TODO: Add validation for username
+    if (usersService.isUserExist(username)) {
+      logger.info('Username already exists !!!!!!!')
+      
+      return next(new Error('Such username already exist'))
+    }
+
+    usersService.saveUser(username)
+
+    next()
+  })
+
+  socketIO.on('connection', (socket) => {
+    logger.info(`[Socket:connection]: User "${socket.handshake.auth.username}" connected`)
+
+    socket.broadcast.emit('applicationNotification', { type: ApplicationActionType.INFO, description: `User "${socket.handshake.auth.username}" joined`})
+    socket.broadcast.emit('currentUsers', usersService.getUsers())
+
+    socket.on('getCurrentData', () => {
       socket.emit('newList', todoList)
+      socket.emit('currentUsers', usersService.getUsers())
     })
 
     socket.on('quickAddNewItem', (newItem: NewListItem) => {
@@ -150,9 +176,12 @@ export default function createWsServer(app: Server) {
     })
   
     socket.on('disconnect', () => {
+      const infoMessage = `User "${socket.handshake.auth.username}" disconnected`
       socket.disconnect()
-      socket.broadcast.emit('applicationNotification', { type: ApplicationActionType.INFO, description: 'User disconnected'})
-      logger.info('[Socket:disconnect]: A user disconnected')
+      socket.broadcast.emit('applicationNotification', { type: ApplicationActionType.INFO, description: infoMessage })
+      usersService.deleteUser(socket.handshake.auth.username)
+      socket.broadcast.emit('currentUsers', usersService.getUsers())
+      logger.info(`[Socket:disconnect]: ${infoMessage}`)
     })
   })
 }

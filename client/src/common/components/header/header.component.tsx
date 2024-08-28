@@ -1,21 +1,23 @@
-import {  Link,  useLocation } from 'react-router-dom'
+import { Link,  useLocation } from 'react-router-dom'
 import { Burger, Container, Group, Image, Title } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 
 import { RoutesMap } from '../../../routing/routes-map'
+import { useLiveConnectionStore } from '../../../common/store/live-connection.store'
 
 import liveIcon from '/live-icon.svg'
 import classes from './header.module.css'
 
 const links = [
   { link: RoutesMap.HOME, label: 'Home' },
+  { link: RoutesMap.LIVE, label: 'Live' },
   { link: RoutesMap.ABOUT, label: 'About' },
 ]
-
 
 const Header = (): JSX.Element => {
   const [opened, { toggle }] = useDisclosure(false)
   const location = useLocation()
+  const loggedIn = useLiveConnectionStore(store => store.loggedIn)
 
   const items = links.map((link) => (
     <Link
@@ -23,6 +25,7 @@ const Header = (): JSX.Element => {
       to={link.link}
       className={classes.link}
       data-active={link.link ===  location.pathname || undefined}
+      data-disabled={!loggedIn || undefined}
     >
       {link.label}
     </Link>

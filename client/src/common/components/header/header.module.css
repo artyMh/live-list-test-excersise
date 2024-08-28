@@ -34,5 +34,9 @@
     background-color: var(--mantine-color-blue-filled);
     color: var(--mantine-color-white);
   }
+
+  [data-mantine-color-scheme] &[data-disabled] {
+    cursor: not-allowed;
+  }
 }
 

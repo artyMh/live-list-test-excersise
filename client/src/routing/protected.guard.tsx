@@ -4,17 +4,17 @@ import type { ReactNode } from 'react'
 
 import { RoutesMap } from './routes-map'
 import { useLiveConnectionStore } from '../common/store/live-connection.store'
-import DefinedGlobalNotificationsService from '../common/services/defined-global-notifications.service'
+import NotificationsService from '../common/services/notifications.service'
 
 type ProtectedRouteProps = {
   children?: ReactNode
 }
 
 export const ProtectedRoute = ({ children }: ProtectedRouteProps): ReactNode => {
-  const connectedToWs = useLiveConnectionStore(store => store.connectedToWs)
+  const loggedIn = useLiveConnectionStore(store => store.loggedIn)
 
-  if (connectedToWs) {
-    DefinedGlobalNotificationsService.applicationNotification('error', 'Error', 'You must be connected')
+  if (!loggedIn) {
+    NotificationsService.applicationNotification('error', 'Error', 'You must be logged in')
 
     return <Navigate to={RoutesMap.HOME} />
   }
