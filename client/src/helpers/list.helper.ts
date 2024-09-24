@@ -28,8 +28,8 @@ function filterListByComplete(completeValue: boolean, array: ListItemModel[]): L
     let isThere = false
 
     if (array[i].children) {
-      array[i].children = filterListByComplete(completeValue, array[i].children)
-      isThere = isThereAnyCompleteValue(completeValue, array[i].children)
+      array[i].children = filterListByComplete(completeValue, array[i].children!)
+      isThere = isThereAnyCompleteValue(completeValue, array[i].children!)
     }
     if (array[i].completed === completeValue || isThere) {
       res.push(array[i])

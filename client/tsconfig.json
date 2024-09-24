@@ -22,7 +22,8 @@
     "noFallthroughCasesInSwitch": true,
 
     "paths": {
-      "backend-models/*": [ "../server/src/models/*" ]
+      "backend-models/*": [ "../server/src/models/*" ],
+      "@components/*": [ "./src/common/components/*" ]
     }
   },
   "include": ["src"],

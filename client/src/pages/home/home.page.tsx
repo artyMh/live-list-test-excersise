@@ -3,7 +3,7 @@ import { useForm } from '@mantine/form'
 import { useNavigate } from 'react-router-dom'
 import { ErrorBoundary, type FallbackProps } from 'react-error-boundary'
 
-import ErrorFallback from '../../common/components/error-boundary.component'
+import ErrorFallback from '@components/error-boundary.component'
 import { reloadPage } from '../../helpers/common.helper'
 import { usernameValidator } from '../../helpers/user.helper'
 import { useLiveConnectionStore } from '../../common/store/live-connection.store'

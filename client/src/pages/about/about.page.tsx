@@ -2,7 +2,7 @@ import { Center, Container, Grid, List, ThemeIcon, Title, rem } from '@mantine/c
 import { IconCircleCheck, IconUser } from '@tabler/icons-react'
 import { ErrorBoundary, type FallbackProps } from 'react-error-boundary'
 
-import ErrorFallback from '../../common/components/error-boundary.component'
+import ErrorFallback from '@components/error-boundary.component'
 import { reloadPage } from '../../helpers/common.helper'
 import { pointsDone, additionalPointsDone } from '../../common/data/about.data.json'
 
