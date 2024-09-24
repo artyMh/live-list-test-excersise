@@ -23,7 +23,8 @@
 
     "paths": {
       "backend-models/*": [ "../server/src/models/*" ],
-      "@components/*": [ "./src/common/components/*" ]
+      "@components/*": [ "./src/common/components/*" ],
+      "@data/*": [ "./src/common/data/*" ]
     }
   },
   "include": ["src"],

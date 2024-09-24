@@ -9,7 +9,8 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@components': resolve(root, 'common/components')
+      '@components': resolve(root, 'common/components'),
+      '@data': resolve(root, 'common/data'),
     }
   },
   server: {

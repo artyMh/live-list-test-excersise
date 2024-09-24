@@ -4,7 +4,7 @@ import { ErrorBoundary, type FallbackProps } from 'react-error-boundary'
 
 import ErrorFallback from '@components/error-boundary.component'
 import { reloadPage } from '../../helpers/common.helper'
-import { pointsDone, additionalPointsDone } from '../../common/data/about.data.json'
+import { pointsDone, additionalPointsDone } from '@data/about.data.json'
 
 const AboutPage = (): JSX.Element => {
   const errorFallback = (props: FallbackProps) => <ErrorFallback {...props} errorText='Something happened on about page'/>
