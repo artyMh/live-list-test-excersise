@@ -3,7 +3,7 @@ import { IconCircleCheck, IconUser } from '@tabler/icons-react'
 import { ErrorBoundary, type FallbackProps } from 'react-error-boundary'
 
 import ErrorFallback from '@components/error-boundary.component'
-import { reloadPage } from '../../helpers/common.helper'
+import { reloadPage } from '@helpers/common.helper'
 import { pointsDone, additionalPointsDone } from '@data/about.data.json'
 
 const AboutPage = (): JSX.Element => {

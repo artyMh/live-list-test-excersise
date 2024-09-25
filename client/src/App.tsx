@@ -6,7 +6,7 @@ import Header from '@components/header/header.component'
 import ErrorFallback from '@components/error-boundary.component'
 import { useLiveConnectionStore } from '@store/live-connection.store'
 import AppRoutes from './routing/app-routes'
-import { reloadPage } from './helpers/common.helper'
+import { reloadPage } from '@helpers/common.helper'
 
 export default function App() {
   const initStore = useLiveConnectionStore(store => store.init)

@@ -4,7 +4,7 @@ import { io } from 'socket.io-client'
 import type { Socket } from 'socket.io-client'
 import type { ListItemModel, NewListItem, NewListItemChildren, UpdateListItem } from 'backend-models/list.model'
 import type { ApplicationActionModel } from 'backend-models/application-action.model'
-import type { NotificationType } from 'src/helpers/notifications.helper'
+import type { NotificationType } from '@helpers/notifications.helper'
 
 import NotificationsService from '@services/notifications.service'
 

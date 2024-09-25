@@ -3,7 +3,7 @@ import { useForm } from '@mantine/form'
 
 import type { NewListItem } from 'backend-models/list.model'
 
-import { labelValidator } from '../../../../helpers/list.helper'
+import { labelValidator } from '@helpers/list.helper'
 
 export type QuickAddItemProps = Readonly<{
   onAddItem: (newItem: NewListItem) => void

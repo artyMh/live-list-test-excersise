@@ -4,7 +4,7 @@ import { IconEdit, IconPlus, IconCurrencyEuro } from '@tabler/icons-react'
 
 import type { ListItemModel, NewListItemChildren } from 'backend-models/list.model'
 
-import { labelValidator } from '../../../../helpers/list.helper'
+import { labelValidator } from '@helpers/list.helper'
 
 export enum EditItemModalMode {
   EDIT_ITEM = 'edit_item',

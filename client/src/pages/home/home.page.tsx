@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import { ErrorBoundary, type FallbackProps } from 'react-error-boundary'
 
 import ErrorFallback from '@components/error-boundary.component'
-import { reloadPage } from '../../helpers/common.helper'
-import { usernameValidator } from '../../helpers/user.helper'
+import { reloadPage } from '@helpers/common.helper'
+import { usernameValidator } from '@helpers/user.helper'
 import { useLiveConnectionStore } from '@store/live-connection.store'
 import { RoutesMap } from '../../routing/routes-map'
 

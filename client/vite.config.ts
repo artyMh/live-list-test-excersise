@@ -14,6 +14,7 @@ export default defineConfig({
       '@models': resolve(root, 'common/models'),
       '@services': resolve(root, 'common/services'),
       '@store': resolve(root, 'common/store'),
+      '@helpers': resolve(root, 'helpers'),
     }
   },
   server: {
