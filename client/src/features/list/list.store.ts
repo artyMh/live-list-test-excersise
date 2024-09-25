@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-import type { ListItemFilter } from 'src/common/models/list-item.model'
+import type { ListItemFilter } from '@models/list-item.model'
 
 type ListStoreState = {
   filterValue: ListItemFilter

@@ -11,6 +11,7 @@ export default defineConfig({
     alias: {
       '@components': resolve(root, 'common/components'),
       '@data': resolve(root, 'common/data'),
+      '@models/*': resolve(root, 'common/models'),
     }
   },
   server: {

@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 
 import type { NewListItem } from 'backend-models/list.model'
-import type { ListItemFilter } from '../../common/models/list-item.model'
+import type { ListItemFilter } from '@models/list-item.model'
 
 import List from './components/list.component'
 import QuickAddListItem from './components/list-item/list-item-quick-add.component'

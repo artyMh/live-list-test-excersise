@@ -1,5 +1,5 @@
 import { ListItemModel } from 'backend-models/list.model'
-import { ListItemFilter } from 'src/common/models/list-item.model'
+import { ListItemFilter } from '@models/list-item.model'
 
 export function labelValidator(labelValue: string): string | null {
   if (!/^[A-Za-z0-9\s]+$/.test(labelValue)) {
