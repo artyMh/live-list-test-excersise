@@ -6,7 +6,7 @@ import type { ListItemModel, NewListItem, NewListItemChildren, UpdateListItem } 
 import type { ApplicationActionModel } from 'backend-models/application-action.model'
 import type { NotificationType } from 'src/helpers/notifications.helper'
 
-import NotificationsService from '../services/notifications.service'
+import NotificationsService from '@services/notifications.service'
 
 type LiveConnectionState = {
   connectedToWs: boolean

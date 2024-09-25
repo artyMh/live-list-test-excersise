@@ -4,7 +4,7 @@ import type { ReactNode } from 'react'
 
 import { RoutesMap } from './routes-map'
 import { useLiveConnectionStore } from '../common/store/live-connection.store'
-import NotificationsService from '../common/services/notifications.service'
+import NotificationsService from '@services/notifications.service'
 
 type ProtectedRouteProps = {
   children?: ReactNode

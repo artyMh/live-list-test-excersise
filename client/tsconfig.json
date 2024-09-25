@@ -25,7 +25,8 @@
       "backend-models/*": [ "../server/src/models/*" ],
       "@components/*": [ "./src/common/components/*" ],
       "@data/*": [ "./src/common/data/*" ],
-      "@models/*": [ "./src/common/models/*" ]
+      "@models/*": [ "./src/common/models/*" ],
+      "@services/*": [ "./src/common/services/*" ],
     }
   },
   "include": ["src"],
