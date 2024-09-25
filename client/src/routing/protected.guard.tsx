@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom'
 import type { ReactNode } from 'react'
 
 import { RoutesMap } from './routes-map'
-import { useLiveConnectionStore } from '../common/store/live-connection.store'
+import { useLiveConnectionStore } from '@store/live-connection.store'
 import NotificationsService from '@services/notifications.service'
 
 type ProtectedRouteProps = {

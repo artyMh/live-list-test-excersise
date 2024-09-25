@@ -4,7 +4,7 @@ import { Center, Container, Grid } from '@mantine/core'
 
 import Header from '@components/header/header.component'
 import ErrorFallback from '@components/error-boundary.component'
-import { useLiveConnectionStore } from './common/store/live-connection.store'
+import { useLiveConnectionStore } from '@store/live-connection.store'
 import AppRoutes from './routing/app-routes'
 import { reloadPage } from './helpers/common.helper'
 

@@ -27,6 +27,7 @@
       "@data/*": [ "./src/common/data/*" ],
       "@models/*": [ "./src/common/models/*" ],
       "@services/*": [ "./src/common/services/*" ],
+      "@store/*": [ "./src/common/store/*" ],
     }
   },
   "include": ["src"],

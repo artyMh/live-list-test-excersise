@@ -3,7 +3,7 @@ import { Burger, Container, Group, Image, Title } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 
 import { RoutesMap } from '../../../routing/routes-map'
-import { useLiveConnectionStore } from '../../../common/store/live-connection.store'
+import { useLiveConnectionStore } from '@store/live-connection.store'
 
 import liveIcon from '/live-icon.svg'
 import classes from './header.module.css'

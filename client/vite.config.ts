@@ -13,6 +13,7 @@ export default defineConfig({
       '@data': resolve(root, 'common/data'),
       '@models': resolve(root, 'common/models'),
       '@services': resolve(root, 'common/services'),
+      '@store': resolve(root, 'common/store'),
     }
   },
   server: {

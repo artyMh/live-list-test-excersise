@@ -9,7 +9,7 @@ import ListItemFilters from './components/list-item/list-item-filters.component'
 
 import { useListStore } from './list.store'
 import { filterList } from '../../helpers/list.helper'
-import { useLiveConnectionStore } from '../../common/store/live-connection.store'
+import { useLiveConnectionStore } from '@store/live-connection.store'
 
 const ListFeature = (): JSX.Element => {
   const listData = useLiveConnectionStore(state => state.listData)
