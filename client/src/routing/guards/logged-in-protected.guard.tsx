@@ -2,15 +2,15 @@ import { Navigate } from 'react-router-dom'
 
 import type { ReactNode } from 'react'
 
-import { RoutesMap } from './routes-map'
+import { RoutesMap } from '../routes-map'
 import { useLiveConnectionStore } from '@store/live-connection.store'
 import NotificationsService from '@services/notifications.service'
 
-type ProtectedRouteProps = {
+type LoggedInProtectedRouteProps = {
   children?: ReactNode
 }
 
-export const ProtectedRoute = ({ children }: ProtectedRouteProps): ReactNode => {
+export const LoggedInProtectedRoute = ({ children }: LoggedInProtectedRouteProps): ReactNode => {
   const loggedIn = useLiveConnectionStore(store => store.loggedIn)
 
   if (!loggedIn) {

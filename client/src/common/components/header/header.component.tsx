@@ -1,4 +1,4 @@
-import { Link,  useLocation } from 'react-router-dom'
+import { Link,  useLocation, type LinkProps } from 'react-router-dom'
 import { Burger, Container, Group, Image, Title } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 
@@ -8,28 +8,35 @@ import { useLiveConnectionStore } from '@store/live-connection.store'
 import liveIcon from '/live-icon.svg'
 import classes from './header.module.css'
 
+type HeaderLinkProps = LinkProps & {
+  'data-active'?: boolean
+  'data-disabled'?: boolean
+}
+
 const links = [
-  { link: RoutesMap.HOME, label: 'Home' },
-  { link: RoutesMap.LIVE, label: 'Live' },
-  { link: RoutesMap.ABOUT, label: 'About' },
+  { href: RoutesMap.HOME, label: 'Home' },
+  { href: RoutesMap.LIVE, label: 'Live' },
+  { href: RoutesMap.ABOUT, label: 'About' },
 ]
 
 const Header = (): JSX.Element => {
-  const [opened, { toggle }] = useDisclosure(false)
+  const [ opened, { toggle } ] = useDisclosure(false)
   const location = useLocation()
   const loggedIn = useLiveConnectionStore(store => store.loggedIn)
 
-  const items = links.map((link) => (
-    <Link
-      key={link.label}
-      to={link.link}
-      className={classes.link}
-      data-active={link.link ===  location.pathname || undefined}
-      data-disabled={!loggedIn || undefined}
-    >
-      {link.label}
-    </Link>
-  ))
+  const items = links.map((link) => {
+    const linkProps: HeaderLinkProps = {
+      to: link.href,
+      className: classes.link,
+      'data-active': link.href === location.pathname || undefined
+    }
+
+    if (loggedIn && link.href === RoutesMap.HOME) {
+      linkProps['data-disabled'] = true
+    }
+
+    return <Link key={link.label} {...linkProps}>{link.label}</Link>
+  })
 
   return (
     <header className={classes.header}>
