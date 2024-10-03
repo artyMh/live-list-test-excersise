@@ -15,6 +15,9 @@ export default defineConfig({
       '@services': resolve(root, 'common/services'),
       '@store': resolve(root, 'common/store'),
       '@helpers': resolve(root, 'helpers'),
+      '@features': resolve(root, 'features'),
+      '@routing': resolve(root, 'routing'),
+      '@pages': resolve(root, 'pages'),
     }
   },
   server: {

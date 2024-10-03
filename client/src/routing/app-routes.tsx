@@ -5,9 +5,9 @@ import { Loader } from '@mantine/core'
 import { RoutesMap } from './routes-map'
 import { ProtectedRoute } from './protected.guard'
 
-const HomePage = lazy(() => import('../pages/home/home.page'))
-const LivePage = lazy(() => import('../pages/live/live.page'))
-const AboutPage = lazy(() => import('../pages/about/about.page'))
+const HomePage = lazy(() => import('@pages/home/home.page'))
+const LivePage = lazy(() => import('@pages/live/live.page'))
+const AboutPage = lazy(() => import('@pages/about/about.page'))
 
 const AppRoutes = (): JSX.Element => (
   <Routes>

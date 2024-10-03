@@ -29,6 +29,9 @@
       "@services/*": [ "./src/common/services/*" ],
       "@store/*": [ "./src/common/store/*" ],
       "@helpers/*": [ "./src/helpers/*" ],
+      "@features/*": [ "./src/features/*" ],
+      "@routing/*": [ "./src/routing/*" ],
+      "@pages/*": [ "./src/pages/*" ],
     }
   },
   "include": ["src"],
