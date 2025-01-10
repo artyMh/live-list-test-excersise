@@ -1,11 +1,13 @@
 {
-  "name": "client",
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "Live list frontend app",
+  "author": "https://github.com/artyMh",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/typescript-eslint/typescript-eslint.git"
+    "url": "git+https://github.com/artyMh/live-list-test-excersise.git"
   },
   "scripts": {
     "start:dev": "vite",

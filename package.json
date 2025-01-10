@@ -2,19 +2,24 @@
   "name": "live-list-test-excersise",
   "version": "1.0.0",
   "description": "Test excersise",
-  "scripts": {
-    "start-client": "npm run start:dev -w client",
-    "start-server": "npm run start:dev -w server"
-  },
-  "author": "Artjoms Mihailovs",
+  "author": "https://github.com/artyMh",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/artyMh/live-list-test-excersise.git"
+  },
   "license": "ISC",
+  "scripts": {
+    "start:frontend": "npm run start:dev -w apps/frontend",
+    "start:backend": "npm run start:dev -w apps/backend"
+  },
   "workspaces": [
-    "client",
-    "server"
+    "apps/frontend",
+    "apps/backend"
   ],
   "engines": {
     "node": ">=20.0.0",
     "npm": ">=10.0.0"
-  }
+  },
+  "packageManager": "npm@10.1.0"
 }
