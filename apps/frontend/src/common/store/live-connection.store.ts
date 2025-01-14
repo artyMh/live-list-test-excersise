@@ -7,8 +7,19 @@ import type { ApplicationActionModel } from 'backend-models/application-action.m
 import type { NotificationType } from '@helpers/notifications.helper'
 
 import NotificationsService from '@services/notifications.service'
+import { ApplicationActionType } from 'backend-models/application-action.model'
+import { ApplicationError } from 'backend-models/application-error.model'
+
+export enum WsConnectionState {
+  IDLE,
+  CONNECTING,
+  CONNECTED,
+  DISCONNECTED,
+  ERROR,
+}
 
 type LiveConnectionState = {
+  wsConnectionState: WsConnectionState
   connectedToWs: boolean
   username: string
   loggedIn: boolean
@@ -20,7 +31,8 @@ type LiveConnectionActions = {
   init: () => void
   connect: (username: string) => void
   setConnectedValue: (connectedToWs: boolean) => void
-
+  setConnectionStateValue: (wsConnectionState: WsConnectionState) => void
+  setLoggedIn: (username: string, connectedToWs: boolean) => void
   setListData: (listData: ListItemModel[]) => void
   addListItem: (newItem: NewListItem) => void
   updateListItem: (updatedItem: UpdateListItem) => void
@@ -32,6 +44,7 @@ type LiveConnectionActions = {
 type LiveConnectionStore = LiveConnectionState & LiveConnectionActions
 
 const initialState: LiveConnectionState = {
+  wsConnectionState: WsConnectionState.IDLE,
   connectedToWs: false,
   loggedIn: false,
   username: '',
@@ -41,28 +54,26 @@ const initialState: LiveConnectionState = {
 
 const createLiveConnectionSlice: StateCreator<LiveConnectionStore> = (set) => {
   const socket: Socket = io(import.meta.env.VITE_WEBSOCKET_SERVER_URL, { autoConnect: false })
-  // const socket: Socket = io(import.meta.env.VITE_WEBSOCKET_SERVER_URL)
-
-  socket.onAny((event, ...args) => {
-    console.log('EVENT', event, args)
-  })
 
   const store: LiveConnectionStore = {
-    connectedToWs: false,
-    loggedIn: true,
-    username: '',
-    listData: [],
-    connectedUsers: [],
+    ...initialState,
 
     init: () => set(() => initialState),
     connect: (username: string) => {
       socket.auth = { username }
       socket.connect()
-      set(() => ({ username, loggedIn: true }))
+      set(() => ({ username, wsConnectionState: WsConnectionState.CONNECTING }))
     },
     setConnectedValue: (connectedToWs: boolean) => set(() => ({ connectedToWs })),
-    
+    setConnectionStateValue: (wsConnectionState: WsConnectionState) => set(() => ({ wsConnectionState })),
+    setLoggedIn: (username: string, connectedToWs: boolean) => set({
+      username,
+      connectedToWs,
+      loggedIn: true,
+      wsConnectionState: WsConnectionState.CONNECTED
+    }),
     setListData: (listData: ListItemModel[]) => set(() => ({ listData })),
+
     addListItem: (newItem: NewListItem) => {
       socket.emit('quickAddNewItem', newItem)
     },
@@ -78,9 +89,15 @@ const createLiveConnectionSlice: StateCreator<LiveConnectionStore> = (set) => {
     updateConnectedUsers: (connectedUsers: string[]) => set(() => ({ connectedUsers }))
   }
 
+  // For debug reasons
+  socket.onAny((event, ...args) => {
+    console.log('EVENT', event, args)
+  })
+
   socket.on('connect', () => {
-    store.setConnectedValue(socket.connected)
+    store.setLoggedIn(store.username, socket.connected)
     NotificationsService.applicationNotification('success', 'Success', 'Successfully connected')
+    socket.emit('getCurrentData') // Get data after success login/connect
   })
   
   socket.on('newList', (data: ListItemModel[]) => {
@@ -93,7 +110,7 @@ const createLiveConnectionSlice: StateCreator<LiveConnectionStore> = (set) => {
     let type: NotificationType = 'info'
     let title = 'Info'
 
-    if (data.type === 0) {
+    if (data.type === ApplicationActionType.ERROR) {
       type = 'error'
       title = 'Server error'
     }
@@ -107,10 +124,31 @@ const createLiveConnectionSlice: StateCreator<LiveConnectionStore> = (set) => {
 
   socket.on('disconnect', () => {
     store.setConnectedValue(socket.connected)
+    store.setConnectionStateValue(WsConnectionState.DISCONNECTED)
     NotificationsService.applicationNotification('error', 'Server error', 'Disconnected')
   })
 
-  socket.emit('getCurrentData')
+  socket.on('connect_error', (err) => {
+    if (err instanceof Error) {
+      switch (err.message) {
+        case ApplicationError.ERROR_INVALID_USERNAME:
+          NotificationsService.applicationNotification('error', '', 'Invalid username')
+          break
+
+        case ApplicationError.ERROR_USERNAME_ALREADY_TAKEN:
+          NotificationsService.applicationNotification('error', '', 'This username already taken')
+          break
+
+        default:
+          NotificationsService.applicationNotification('error', 'Error', 'Unexpected error occured, check console for details')
+          console.error('Error in socker.io:', err)
+      }
+    } else {
+      console.error('Undefined error in socker.io:', err)
+    }
+
+    store.setConnectionStateValue(WsConnectionState.ERROR)
+  })
 
   return store
 }

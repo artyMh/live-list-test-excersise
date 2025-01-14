@@ -1,4 +1,5 @@
-import { ListItemModel } from 'backend-models/list.model'
+import type { ListItemModel } from 'backend-models/list.model'
+
 import { ListItemFilter } from '@models/list-item.model'
 
 export function labelValidator(labelValue: string): string | null {

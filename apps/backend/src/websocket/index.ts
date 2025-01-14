@@ -7,6 +7,7 @@ import type { ListItemModel, NewListItem, NewListItemChildren, UpdateListItem } 
 import logger from '../logger'
 import { calculateCost, clearListItemChildren, findListItem, setCompleteValueForListItem } from '../helpers/list-item.helper'
 import { ApplicationActionModel, ApplicationActionType } from '../models/application-action.model'
+import { ApplicationError } from '../models/application-error.model'
 import UsersService from '../services/users.service'
 
 let todoList: ListItemModel[] = [
@@ -72,14 +73,21 @@ export default function createWsServer(app: Server) {
     const username = socket.handshake.auth.username
 
     if (!username) {
-      return next(new Error('Invalid username'))
+      return next(new Error(ApplicationError.ERROR_INVALID_USERNAME))
     }
 
     // TODO: Add validation for username
     if (usersService.isUserExist(username)) {
-      logger.info('Username already exists !!!!!!!')
-      
-      return next(new Error('Such username already exist'))
+      logger.info(`Username "${username}" already exists`)
+      const err = new Error(ApplicationError.ERROR_USERNAME_ALREADY_TAKEN)
+      // FIXME: why this code from docs dont work
+      // const errorData: ApplicationActionModel = {
+      //   type: ApplicationActionType.ERROR,
+      //   description: 'Such username already exist'
+      // }
+      // err.data = errorData
+
+      return next(err)
     }
 
     usersService.saveUser(username)

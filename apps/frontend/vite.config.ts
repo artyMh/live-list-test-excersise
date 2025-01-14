@@ -9,6 +9,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
+      'backend-models': resolve(root, '../../backend/src/models'),
       '@components': resolve(root, 'common/components'),
       '@data': resolve(root, 'common/data'),
       '@models': resolve(root, 'common/models'),
