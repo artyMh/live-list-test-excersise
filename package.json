@@ -4,22 +4,25 @@
   "description": "Test excersise",
   "author": "https://github.com/artyMh",
   "private": true,
+  "license": "ISC",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/artyMh/live-list-test-excersise.git"
   },
-  "license": "ISC",
   "scripts": {
     "start:frontend": "npm run start:dev -w apps/frontend",
     "start:backend": "npm run start:dev -w apps/backend"
   },
   "workspaces": [
     "apps/frontend",
-    "apps/backend"
+    "apps/backend",
+    "packages/core"
   ],
   "engines": {
     "node": ">=20.0.0",
     "npm": ">=10.0.0"
   },
-  "packageManager": "npm@10.1.0"
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  }
 }

@@ -8,10 +8,17 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+*.tsbuildinfo
+
 apps/frontend/node_modules/*
 apps/frontend/dist
+
 apps/backend/node_modules/*
 apps/backend/dist
+
+apps/packages/core/node_modules/*
+apps/packages/core/dist
+
 dist-ssr
 *.local
 

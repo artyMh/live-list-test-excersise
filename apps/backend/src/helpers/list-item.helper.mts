@@ -1,4 +1,4 @@
-import { ListItemModel } from '../models/list.model'
+import { ListItemModel } from '../models/list.model.mjs'
 
 export function findListItem(id: string, array: ListItemModel[]): ListItemModel | null {
   for (const node of array) {
@@ -27,7 +27,7 @@ export function clearListItemChildren(id: string, array: ListItemModel[]): ListI
     }
 
     if (array[i].children) {
-      array[i].children = clearListItemChildren(id, array[i].children)
+      array[i].children = clearListItemChildren(id, array[i].children as ListItemModel[])
     }
   }
 

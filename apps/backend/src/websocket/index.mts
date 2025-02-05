@@ -2,13 +2,13 @@ import { Server as SocketIOServer } from 'socket.io'
 import { v4 as uuidv4 } from 'uuid'
 
 import type { Server } from 'node:http'
-import type { ListItemModel, NewListItem, NewListItemChildren, UpdateListItem } from '../models/list.model'
+import type { ListItemModel, ApplicationActionModel } from '@app/core'
+import type { NewListItem, NewListItemChildren, UpdateListItem } from '../models/list.model.mjs'
 
-import logger from '../logger'
-import { calculateCost, clearListItemChildren, findListItem, setCompleteValueForListItem } from '../helpers/list-item.helper'
-import { ApplicationActionModel, ApplicationActionType } from '../models/application-action.model'
-import { ApplicationError } from '../models/application-error.model'
-import UsersService from '../services/users.service'
+import { ApplicationActionType, ApplicationError } from '@app/core'
+import { calculateCost, clearListItemChildren, findListItem, setCompleteValueForListItem } from '../helpers/list-item.helper.mjs'
+import UsersService from '../services/users.service.mjs'
+import logger from '../logger.mjs'
 
 let todoList: ListItemModel[] = [
   {
