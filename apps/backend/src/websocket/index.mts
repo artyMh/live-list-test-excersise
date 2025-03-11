@@ -2,7 +2,7 @@ import { Server as SocketIOServer } from 'socket.io'
 import { v4 as uuidv4 } from 'uuid'
 
 import type { Server } from 'node:http'
-import type { ListItemModel, ApplicationActionModel } from '@app/core'
+import type { ListItemModel, ApplicationNotificationModel } from '@app/core'
 import type { NewListItem, NewListItemChildren, UpdateListItem } from '../models/list.model.mjs'
 
 import { ApplicationActionType, ApplicationError } from '@app/core'
@@ -139,7 +139,7 @@ export default function createWsServer(app: Server) {
         socket.broadcast.emit('newList', todoList)
       } else {
         logger.error(`[Socket:updateItem] Couldn't find item with id "${updatedListItem.id}"`)
-        const appNotification: ApplicationActionModel = {
+        const appNotification: ApplicationNotificationModel = {
           type: ApplicationActionType.ERROR,
           description: 'Error occured performing update'
         }
@@ -168,7 +168,7 @@ export default function createWsServer(app: Server) {
         socket.broadcast.emit('newList', todoList)
       } else {
         logger.error(`[Socket:createItemChildren] Couldn't find item with id "${newItemChild.parentId}"`)
-        const appNotification: ApplicationActionModel = {
+        const appNotification: ApplicationNotificationModel = {
           type: ApplicationActionType.ERROR,
           description: 'Error occured performing create'
         }

@@ -130,6 +130,7 @@ const createLiveConnectionSlice: StateCreator<LiveConnectionStore> = (set) => {
 
   socket.on('connect_error', (err) => {
     if (err instanceof Error) {
+      console.log('WHAT?', err)
       switch (err.message) {
         case ApplicationError.ERROR_INVALID_USERNAME:
           NotificationsService.applicationNotification('error', '', 'Invalid username')

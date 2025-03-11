@@ -1,4 +1,4 @@
-import { ListItemModel } from '../models/list.model.mjs'
+import { ListItemModel } from '@app/core'
 
 export class ListItemsService {
   private listItems: ListItemModel[]

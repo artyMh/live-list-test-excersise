@@ -3,11 +3,12 @@
 ## Building
 
 To build this codebase you will need:
-- NodeJS
-- NPM
+- NodeJS v20+
+- NPM v10+
 
 ## Start locally
 
+- Create `.env` configuration files for `backend` and `frontend`
 - Install dependencies `npm i`
 - Run backend `npm run start:frontend`
 - Run frontend `npm run start:backend`
@@ -16,15 +17,13 @@ Default url for client is http://localhost:3000
 
 Details of stories implemented located here http://localhost:3000/about
 
-## Start with docker
-
 ## Repository Organisation
 
 This repository is monorepo done with NPM Workspaces
 
 - `apps/backend` - backend part of application, containing business and WebSocket logic
 - `apps/frontend` - frontend part of application, works with backend
-- `packages/core` - things, which are shared between frontend and backend
+- `packages/core` - things, which are shared between frontend and backend (DTOs, etc)
 
 ## Stack
 
@@ -45,21 +44,24 @@ This repository is monorepo done with NPM Workspaces
 
 ## What could be better
 
-- Rework project foldering (bring apps, packages)
-- Add `core` workspace:
-  - Add configs like `eslint`/`typescript` to be shared from root
+- Rework project foldering (bring apps, packages/core)
   - Share DTOs between FE/BE better: `core` workspace
+  - Add configs like `eslint`/`typescript` to be shared from root
 - Rework list item helper at backend as a service
 - Nodejs add `helmet`
-- Vite add `vite-tsconfig-paths`
+- Add disconnect button
+- Fix user name in connection feature
 - Add route layout elements & add handle for 404?
-- Use `zod` for object schema validator (and possibly add it to `core`?)
+- Use `zod` for object schema validator (and possibly add it to `core`?) ?
   - https://github.com/mantinedev/mantine-form-zod-resolver/issues/2
 - Update:
-  - Node to v22 and npm
-  - SocketIO to version 4.8.0+ (https://socket.io/docs/v4/changelog/4.8.0) for transport feture using
+  - Node to v22 and npm 11
+  - SocketIO to version 4.8.0+ (https://socket.io/docs/v4/changelog/4.8.0) for transport feature using
+  - React v19 + Mantine
 - Add docker (docker example https://nodejs.org/en/download) https://github.com/remix-run/react-router-templates/blob/main/javascript/Dockerfile
 - Add husky
+- Add shadcn?
+  - https://github.com/neigebaie/shadcn-ui-tree-view
 - Add home page with login
   - https://socket.io/get-started/private-messaging-part-1/
   - https://blog.logrocket.com/authentication-react-router-v6/

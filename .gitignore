@@ -16,8 +16,8 @@ apps/frontend/dist
 apps/backend/node_modules/*
 apps/backend/dist
 
-apps/packages/core/node_modules/*
-apps/packages/core/dist
+packages/core/node_modules/*
+packages/core/dist
 
 dist-ssr
 *.local
