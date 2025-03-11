@@ -7,8 +7,6 @@ const ConnectionStatusFeature = (): JSX.Element => {
   const connectedToWs = useLiveConnectionStore(store => store.connectedToWs)
   const username = useLiveConnectionStore(store => store.username)
   const connectedUsers = useLiveConnectionStore(store => store.connectedUsers)
-  const store = useLiveConnectionStore(store => store)
-  console.log('???', store)
 
   return (
     <>

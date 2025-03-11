@@ -95,7 +95,10 @@ const createLiveConnectionSlice: StateCreator<LiveConnectionStore> = (set) => {
   })
 
   socket.on('connect', () => {
-    store.setLoggedIn(store.username, socket.connected)
+    // TODO: fix this somehow, otherwise direct use of `socket.auth.username` lead to 
+    // type error "Property 'auth' does not exist on type"
+    const socketAuth = socket.auth as { username: string }
+    store.setLoggedIn(socketAuth.username, socket.connected)
     NotificationsService.applicationNotification('success', 'Success', 'Successfully connected')
     socket.emit('getCurrentData') // Get data after success login/connect
   })
