@@ -46,8 +46,11 @@ This repository is monorepo done with NPM Workspaces
 
 - Rework project foldering (bring apps, packages/core)
   - Share DTOs between FE/BE better: `core` workspace
-  - Add configs like `eslint`/`typescript` to be shared from root
+  - Add config `typescript` to be shared from root
+  - Add config `eslint` to be shared from root
 - Rework list item helper at backend as a service
+- Add better toast messages with usernames and items
+- Add save list to disk(persistance?)
 - Nodejs add `helmet`
 - Add disconnect button
 - Fix user name in connection feature

@@ -2,64 +2,17 @@ import { Server as SocketIOServer } from 'socket.io'
 import { v4 as uuidv4 } from 'uuid'
 
 import type { Server } from 'node:http'
-import type { ListItemModel, ApplicationNotificationModel } from '@app/core'
+import type { ApplicationNotificationModel, ListItemModel } from '@app/core'
 import type { NewListItem, NewListItemChildren, UpdateListItem } from '../models/list.model.mjs'
 
 import { ApplicationActionType, ApplicationError } from '@app/core'
-import { calculateCost, clearListItemChildren, findListItem, setCompleteValueForListItem } from '../helpers/list-item.helper.mjs'
 import UsersService from '../services/users.service.mjs'
 import logger from '../logger.mjs'
-
-let todoList: ListItemModel[] = [
-  {
-    id: uuidv4(),
-    completed: false,
-    label: 'Vegetables',
-    cost: 3.20,
-    children: [
-      {
-        id: uuidv4(),
-        completed: false,
-        label: 'Cucumber',
-        cost: 1.80
-      },
-      {
-        id: uuidv4(),
-        completed: false,
-        label: 'Potato',
-        cost: 1.40
-      },
-    ]
-  },
-  {
-    id: uuidv4(),
-    completed: false,
-    label: 'Fruits',
-    cost: 2.80,
-    children: [
-      {
-        id: uuidv4(),
-        completed: false,
-        label: 'Banana',
-        cost: 1.00,
-      },
-      {
-        id: uuidv4(),
-        completed: false,
-        label: 'Orange',
-        cost: 0.50,
-      },
-      {
-        id: uuidv4(),
-        completed: false,
-        label: 'Melone',
-        cost: 1.30,
-      },
-    ]
-  }
-]
+import { listPlaceholder } from '../data/list-placeholder.mjs'
+import { ListItemsService } from '../services/list-items.service.mjs'
 
 const usersService = new UsersService()
+const listItemService = new ListItemsService(listPlaceholder)
 
 export default function createWsServer(app: Server) {
   const socketIO = new SocketIOServer(app, {
@@ -96,97 +49,115 @@ export default function createWsServer(app: Server) {
   })
 
   socketIO.on('connection', (socket) => {
-    logger.info(`[Socket:connection]: User "${socket.handshake.auth.username}" connected`)
+    const username = socket.handshake.auth.username
+    logger.info(`[Socket:connection]: User '${username}' connected`)
 
-    socket.broadcast.emit('applicationNotification', { type: ApplicationActionType.INFO, description: `User "${socket.handshake.auth.username}" joined`})
+    socket.broadcast.emit('applicationNotification', {
+      type: ApplicationActionType.INFO,
+      description: `User "${username}" joined`
+    })
     socket.broadcast.emit('currentUsers', usersService.getUsers())
 
     socket.on('getCurrentData', () => {
-      socket.emit('newList', todoList)
+      socket.emit('newList', listItemService.listItems)
       socket.emit('currentUsers', usersService.getUsers())
     })
 
     socket.on('quickAddNewItem', (newItem: NewListItem) => {
-      const newListItem: ListItemModel = {
+      // TODO: Add data validation
+      const isAdded = listItemService.addItem({
         id: uuidv4(),
         completed: false,
         label: newItem.label,
         cost: 0,
-      }
-      todoList.unshift(newListItem)
-      calculateCost(todoList)
-      
-      socket.emit('newList', todoList)
-      socket.broadcast.emit('newList', todoList)
-    })
-
-    socket.on('updateItem', (updatedListItem: UpdateListItem) => {
-      const item = findListItem(updatedListItem.id, todoList)
-
-      if (item) {
-        item.label = updatedListItem.label
-        item.completed = updatedListItem.completed
-        item.cost = updatedListItem.cost
-
-        
-        if (item.children) {
-          setCompleteValueForListItem(updatedListItem.completed, item.children)
-        }
-        
-        calculateCost(todoList)
-
-        socket.emit('newList', todoList)
-        socket.broadcast.emit('newList', todoList)
+      })
+      if (isAdded) {
+        logger.info(`[Socket:quickAddNewItem]: User '${username}' added new item: '${newItem.label}'`)
+        socket.emit('newList', listItemService.listItems)
+        socket.broadcast.emit('newList', listItemService.listItems)
       } else {
-        logger.error(`[Socket:updateItem] Couldn't find item with id "${updatedListItem.id}"`)
+        logger.error(`[Socket:quickAddNewItem] User '${username}' couldn't add new item with label '${newItem.label}'"`)
         const appNotification: ApplicationNotificationModel = {
           type: ApplicationActionType.ERROR,
-          description: 'Error occured performing update'
+          description: `Error occured adding '${newItem.label}' item`
+        }
+        socket.emit('applicationNotification', appNotification)
+      }
+    })
+
+    socket.on('updateItem', (changedListItem: UpdateListItem) => {
+      // TODO: Add data validation
+      const updatedItem = listItemService.updateItem(changedListItem.id, changedListItem)
+
+      if (updatedItem !== null) {
+        logger.info(`[Socket:updateItem]: User '${username}' updated item: '${updatedItem.label}'`)
+        socket.emit('newList', listItemService.listItems)
+        socket.broadcast.emit('newList', listItemService.listItems)
+      } else {
+        logger.error(`[Socket:updateItem] Couldn't find item with id '${changedListItem.id}':'${changedListItem.label}'`)
+        const appNotification: ApplicationNotificationModel = {
+          type: ApplicationActionType.ERROR,
+          description: `Error occured updating '${changedListItem.label}' item`
         }
         socket.emit('applicationNotification', appNotification)
       }
     })
 
     socket.on('createItemChildren', (newItemChild: NewListItemChildren) => {
-      const item = findListItem(newItemChild.parentId, todoList)
+      // TODO: Add data validation
+      const newChildItem = listItemService.addChildrenToItem(newItemChild)
 
-      if (item) {
-        const newChildListItem: ListItemModel = {
-          id: uuidv4(),
-          completed: newItemChild.completed,
-          label: newItemChild.label,
-          cost: newItemChild.cost ?? 0
-        }
-        if (item.children) {
-          item.children.push(newChildListItem)
-        } else {
-          item.children = [ newChildListItem ]
-        }
-
-        calculateCost(todoList)
-        socket.emit('newList', todoList)
-        socket.broadcast.emit('newList', todoList)
+      if (newChildItem !== null) {
+        socket.emit('newList', listItemService.listItems)
+        socket.broadcast.emit('newList', listItemService.listItems)
       } else {
-        logger.error(`[Socket:createItemChildren] Couldn't find item with id "${newItemChild.parentId}"`)
+        logger.error(`[Socket:createItemChildren] Couldn't find item with id '${newItemChild.parentId}':'${newItemChild.label}'`)
         const appNotification: ApplicationNotificationModel = {
           type: ApplicationActionType.ERROR,
-          description: 'Error occured performing create'
+          description: `Error occured adding ${newItemChild.label} item in '${newItemChild.parentId}'`
         }
         socket.emit('applicationNotification', appNotification)
       }
     })
   
     socket.on('deleteItem', (id: string) => {
-      todoList = clearListItemChildren(id, todoList)
-      calculateCost(todoList)
-      socket.emit('newList', todoList)
-      socket.broadcast.emit('newList', todoList)
+      // TODO: Add id validation
+      const itemForDelete = listItemService.findItemById(id)
+
+      if (itemForDelete === null) {
+        logger.error(`[Socket:deleteItem]: User '${username}' can't find item for delete: '${id}'`)
+        const appNotification: ApplicationNotificationModel = {
+          type: ApplicationActionType.ERROR,
+          description: `Error occured deleting item with id '${id}' item`
+        }
+        socket.emit('applicationNotification', appNotification)
+        
+        return
+      }
+
+      const isDeleted = listItemService.deleteItem(id)
+
+      if (isDeleted) {
+        logger.info(`[Socket:deleteItem]: User '${username}' deleted item: '${id}':'${itemForDelete.label}'`)
+        socket.emit('newList', listItemService.listItems)
+        socket.broadcast.emit('newList', listItemService.listItems)
+      } else {
+        logger.error(`[Socket:deleteItem] Couldn't delete item with id: '${id}':"${itemForDelete.label}"`)
+        const appNotification: ApplicationNotificationModel = {
+          type: ApplicationActionType.ERROR,
+          description: `Error occured deleting '${itemForDelete.label}' item`
+        }
+        socket.emit('applicationNotification', appNotification)
+      }
     })
   
     socket.on('disconnect', () => {
-      const infoMessage = `User "${socket.handshake.auth.username}" disconnected`
+      const infoMessage = `User '${username}' disconnected`
       socket.disconnect()
-      socket.broadcast.emit('applicationNotification', { type: ApplicationActionType.INFO, description: infoMessage })
+      socket.broadcast.emit('applicationNotification', {
+        type: ApplicationActionType.INFO,
+        description: infoMessage
+      })
       usersService.deleteUser(socket.handshake.auth.username)
       socket.broadcast.emit('currentUsers', usersService.getUsers())
       logger.info(`[Socket:disconnect]: ${infoMessage}`)

@@ -1,22 +1,95 @@
-import { ListItemModel } from '@app/core'
+import { v4 as uuidv4 } from 'uuid'
+
+import type { ListItemModel, NewListItemChildren } from '@app/core'
 
 export class ListItemsService {
-  private listItems: ListItemModel[]
+  #listItems: ListItemModel[]
 
-  constructor(listItems: ListItemModel[]) {
-    this.listItems = listItems
+  get listItems(): ListItemModel[] {
+    return this.#listItems
   }
 
-  findListItem(id: string, arrayNeedle: ListItemModel[] = []): ListItemModel | null {
-    const listItems = this.prepareArray(arrayNeedle)
+  constructor(listItems: ListItemModel[]) {
+    this.#listItems = listItems
+  }
 
-    for (const node of listItems) {
+  addItem(newItem: ListItemModel): boolean {
+    const currentItemCount = this.#listItems.length
+    const updatedItemCount = this.#listItems.unshift(newItem)
+
+    if (updatedItemCount > currentItemCount) {
+      // this.#recalculateAllCosts()
+
+      return true
+    }
+
+    return false
+  }
+
+  updateItem(itemId: string, updatedItem: ListItemModel): ListItemModel | null {
+    const item = this.#findItem(itemId)
+    
+    if (item !== null) {
+      item.label = updatedItem.label
+      item.completed = updatedItem.completed
+      item.cost = updatedItem.cost
+      
+      if (item.children) {
+        this.#setCompletedForItem(updatedItem.completed, item.children)
+      }
+      this.#recalculateAllCosts()
+
+      return updatedItem
+    }
+
+    return null
+  }
+
+  addChildrenToItem(newItemChild: NewListItemChildren): ListItemModel | null {
+    const item = this.#findItem(newItemChild.parentId)
+
+    if (item !== null) {
+      const newChildItem: ListItemModel = {
+        id: uuidv4(),
+        completed: newItemChild.completed,
+        label: newItemChild.label,
+        cost: newItemChild.cost ?? 0
+      }
+      if (item.children) {
+        item.children.push(newChildItem)
+      } else {
+        item.children = [ newChildItem ]
+      }
+
+      // this.#recalculateAllCosts()
+      
+      calculateCost(this.#listItems)
+
+      return newChildItem
+    }
+
+    return null
+  }
+
+  deleteItem(id: string): boolean {
+    this.#listItems = this.#clearListItemChildren(id)
+    this.#recalculateAllCosts()
+
+    return true
+  }
+
+  findItemById(id: string): ListItemModel | null {
+    return this.#findItem(id)
+  }
+
+  #findItem(id: string, arrayNeedle: ListItemModel[] = this.#listItems): ListItemModel | null {
+    for (const node of arrayNeedle) {
       if (node.id === id) {
         return node
       }
   
       if (node.children) {
-        const child = this.findListItem(id, node.children)
+        const child = this.#findItem(id, node.children)
   
         if (child) {
           return child
@@ -27,62 +100,49 @@ export class ListItemsService {
     return null
   }
 
-  clearListItemChildren(id: string, arrayNeedle: ListItemModel[] = []): ListItemModel[] {
-    const array = this.prepareArray(arrayNeedle)
-
-    for (let i = 0; i <= array.length - 1; i++) {
-      if (array[i].id === id) {
-        const res = array.filter(item => item.id !== id)
+  #clearListItemChildren(id: string, arrayNeedle: ListItemModel[] = this.#listItems): ListItemModel[] {
+    for (let i = 0; i <= arrayNeedle.length - 1; i++) {
+      if (arrayNeedle[i].id === id) {
+        const res = arrayNeedle.filter(item => item.id !== id)
   
         return res
       }
   
-      if (array[i].children) {
-        array[i].children = this.clearListItemChildren(id, array[i].children)
+      if (arrayNeedle[i].children) {
+        arrayNeedle[i].children = this.#clearListItemChildren(id, arrayNeedle[i].children)
       }
     }
   
-    return array
+    return arrayNeedle
   }
 
-  setCompleteValueForListItem(value: boolean, arrayNeedle: ListItemModel[] = []): void {
-    const listItems = this.prepareArray(arrayNeedle)
-
-    for (const item of listItems) {
+  #setCompletedForItem(value: boolean, arrayNeedle: ListItemModel[] = this.#listItems): void {
+    for (const item of arrayNeedle) {
       item.completed = value
   
       if (item.children) {
-        this.setCompleteValueForListItem(value, item.children)
+        this.#setCompletedForItem(value, item.children)
       }
     }
   }
 
-  calculateCost(): void {
-    for (const item of this.listItems) {
+  #recalculateAllCosts(): void {
+    for (const item of this.#listItems) {
       if (item.children) {
-        item.cost = this.calculateListItemCost(item.children, 0)
+        item.cost = this.#calculateItemCost(item.children, 0)
       }
     }
   }
 
-  private calculateListItemCost(listItems: ListItemModel[], sum: number): number {
-  
+  #calculateItemCost(listItems: ListItemModel[], sum: number): number {
     for (const item of listItems) {
       if (item.children) {
-        item.cost = this.calculateListItemCost(item.children, sum)
+        item.cost = this.#calculateItemCost(item.children, sum)
       }
   
       sum += item.cost
     }
   
     return sum
-  }
-
-  private prepareArray(arrayNeedle: ListItemModel[]): ListItemModel[] {  
-    if (arrayNeedle.length > 0) {
-      return  arrayNeedle
-    } else {
-      return this.listItems
-    }
   }
 }
