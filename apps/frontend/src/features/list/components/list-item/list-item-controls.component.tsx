@@ -2,7 +2,7 @@ import { ActionIcon, Badge, Box, Flex } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { IconPlus, IconTrash, IconEdit } from '@tabler/icons-react'
 
-import { ListItemModel, NewListItemChildren, UpdateListItem } from 'backend-models/list.model'
+import { ListItemModel, NewListItemChildren, UpdateListItem } from '@app/core'
 import EditItemModal, { EditItemModalMode } from './list-item-edit-modal.component'
 
 export type ListItemControlsProps = Readonly<{

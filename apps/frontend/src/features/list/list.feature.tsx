@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import type { NewListItem } from 'backend-models/list.model'
+import type { NewListItem } from '@app/core'
 import type { ListItemFilter } from '@models/list-item.model'
 
 import List from './components/list.component'

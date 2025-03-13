@@ -1,7 +1,7 @@
 import { Button, Container, TextInput } from '@mantine/core'
 import { useForm } from '@mantine/form'
 
-import type { NewListItem } from 'backend-models/list.model'
+import type { NewListItem } from '@app/core'
 
 import { labelValidator } from '@helpers/list.helper'
 

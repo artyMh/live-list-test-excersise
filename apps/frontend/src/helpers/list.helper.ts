@@ -1,4 +1,4 @@
-import type { ListItemModel } from 'backend-models/list.model'
+import type { ListItemModel } from '@app/core'
 
 import { ListItemFilter } from '@models/list-item.model'
 

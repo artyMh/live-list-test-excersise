@@ -1,7 +1,7 @@
 import { FormEvent } from 'react'
 import { List as MantineList, Checkbox } from '@mantine/core'
 
-import type { ListItemModel } from 'backend-models/list.model'
+import type { ListItemModel } from '@app/core'
 
 import { useLiveConnectionStore } from '@store/live-connection.store'
 import ListItemControls from './list-item-controls.component'

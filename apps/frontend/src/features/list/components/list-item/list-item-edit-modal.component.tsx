@@ -2,7 +2,7 @@ import { Button, Checkbox, Group, Modal, ModalProps, TextInput, NumberInput } fr
 import { useForm } from '@mantine/form'
 import { IconEdit, IconPlus, IconCurrencyEuro } from '@tabler/icons-react'
 
-import type { ListItemModel, NewListItemChildren } from 'backend-models/list.model'
+import type { ListItemModel, NewListItemChildren } from '@app/core'
 
 import { labelValidator } from '@helpers/list.helper'
 
