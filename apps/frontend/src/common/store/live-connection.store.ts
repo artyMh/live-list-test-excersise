@@ -2,13 +2,13 @@ import { create, StateCreator } from 'zustand'
 import { io } from 'socket.io-client'
 
 import type { Socket } from 'socket.io-client'
-import type { ListItemModel, NewListItem, NewListItemChildren, UpdateListItem } from 'backend-models/list.model'
-import type { ApplicationActionModel } from 'backend-models/application-action.model'
+import type { ListItemModel, NewListItem, NewListItemChildren, UpdateListItem } from '@app/core'
+import type { ApplicationNotificationModel } from '@app/core'
 import type { NotificationType } from '@helpers/notifications.helper'
 
 import NotificationsService from '@services/notifications.service'
-import { ApplicationActionType } from 'backend-models/application-action.model'
-import { ApplicationError } from 'backend-models/application-error.model'
+import { ApplicationActionType } from '@app/core'
+import { ApplicationError } from '@app/core'
 
 export enum WsConnectionState {
   IDLE,
@@ -108,7 +108,7 @@ const createLiveConnectionSlice: StateCreator<LiveConnectionStore> = (set) => {
     NotificationsService.applicationNotification('info', 'Update', 'New list recevied')
   })
 
-  socket.on('applicationNotification', (data: ApplicationActionModel) => {
+  socket.on('applicationNotification', (data: ApplicationNotificationModel) => {
     const message = data.description
     let type: NotificationType = 'info'
     let title = 'Info'

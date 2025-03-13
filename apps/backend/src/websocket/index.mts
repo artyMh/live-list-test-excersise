@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 import type { Server } from 'node:http'
 import type { ApplicationNotificationModel } from '@app/core'
-import type { NewListItem, NewListItemChildren, UpdateListItem } from '../models/list.model.mjs'
+import type { NewListItem, NewListItemChildren, UpdateListItem } from '@app/core'
 
 import { ApplicationActionType, ApplicationError } from '@app/core'
 import UsersService from '../services/users.service.mjs'
