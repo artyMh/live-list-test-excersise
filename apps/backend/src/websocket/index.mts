@@ -2,7 +2,7 @@ import { Server as SocketIOServer } from 'socket.io'
 import { v4 as uuidv4 } from 'uuid'
 
 import type { Server } from 'node:http'
-import type { ApplicationNotificationModel, ListItemModel } from '@app/core'
+import type { ApplicationNotificationModel } from '@app/core'
 import type { NewListItem, NewListItemChildren, UpdateListItem } from '../models/list.model.mjs'
 
 import { ApplicationActionType, ApplicationError } from '@app/core'
@@ -31,7 +31,7 @@ export default function createWsServer(app: Server) {
 
     // TODO: Add validation for username
     if (usersService.isUserExist(username)) {
-      logger.info(`Username "${username}" already exists`)
+      logger.warn(`Username '${username}' already exists`)
       const err = new Error(ApplicationError.ERROR_USERNAME_ALREADY_TAKEN)
       // FIXME: why this code from docs dont work
       // const errorData: ApplicationActionModel = {

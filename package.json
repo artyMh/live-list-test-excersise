@@ -10,6 +10,8 @@
     "url": "git+https://github.com/artyMh/live-list-test-excersise.git"
   },
   "scripts": {
+    "clean": "tsc --build --clean",
+    "build": "tsc --build",
     "build:frontend": "npm run build -w apps/frontend",
     "build:backend": "npm run build -w apps/backend",
     "start:frontend": "npm run start:dev -w apps/frontend",

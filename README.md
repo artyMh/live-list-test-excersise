@@ -53,7 +53,6 @@ This repository is monorepo done with NPM Workspaces
 - Add save list to disk(persistance?)
 - Nodejs add `helmet`
 - Add disconnect button
-- Fix user name in connection feature
 - Add route layout elements & add handle for 404?
 - Use `zod` for object schema validator (and possibly add it to `core`?) ?
   - https://github.com/mantinedev/mantine-form-zod-resolver/issues/2

@@ -61,9 +61,7 @@ export class ListItemsService {
         item.children = [ newChildItem ]
       }
 
-      // this.#recalculateAllCosts()
-      
-      calculateCost(this.#listItems)
+      this.#recalculateAllCosts()
 
       return newChildItem
     }
