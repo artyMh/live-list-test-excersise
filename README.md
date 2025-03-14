@@ -44,22 +44,24 @@ This repository is monorepo done with NPM Workspaces
 
 ## What could be better
 
+- Add better toast messages with usernames and items
+- Use enums in websockets events
+- Implement clean DTOs
 - Rework project foldering (bring apps, packages/core)
   - Share DTOs between FE/BE better: `core` workspace
   - Add config `typescript` to be shared from root
   - Add config `eslint` to be shared from root
-- Rework list item helper at backend as a service
-- Add better toast messages with usernames and items
 - Add save list to disk(persistance?)
-- Nodejs add `helmet`
+- Nodejs add `helmet`, remove `frameguard` & `x-xss-protection`
+- Fix cors between dev & prod run
 - Add disconnect button
 - Add route layout elements & add handle for 404?
 - Use `zod` for object schema validator (and possibly add it to `core`?) ?
   - https://github.com/mantinedev/mantine-form-zod-resolver/issues/2
 - Update:
   - Node to v22 and npm 11
-  - SocketIO to version 4.8.0+ (https://socket.io/docs/v4/changelog/4.8.0) for transport feature using
   - React v19 + Mantine
+  - SocketIO to version 4.8.0+ (https://socket.io/docs/v4/changelog/4.8.0) for transport feature using
 - Add docker (docker example https://nodejs.org/en/download) https://github.com/remix-run/react-router-templates/blob/main/javascript/Dockerfile
 - Add husky
 - Add shadcn?

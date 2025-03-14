@@ -7,8 +7,7 @@ import type { ApplicationNotificationModel } from '@app/core'
 import type { NotificationType } from '@helpers/notifications.helper'
 
 import NotificationsService from '@services/notifications.service'
-import { ApplicationActionType } from '@app/core'
-import { ApplicationError } from '@app/core'
+import { ApplicationActionType, ApplicationError, AppSocketEvent } from '@app/core'
 
 export enum WsConnectionState {
   IDLE,
@@ -75,16 +74,16 @@ const createLiveConnectionSlice: StateCreator<LiveConnectionStore> = (set) => {
     setListData: (listData: ListItemModel[]) => set(() => ({ listData })),
 
     addListItem: (newItem: NewListItem) => {
-      socket.emit('quickAddNewItem', newItem)
+      socket.emit(AppSocketEvent.QuickAddNewItem, newItem)
     },
     updateListItem: (updatedItem: UpdateListItem) => {
-      socket.emit('updateItem', updatedItem)
+      socket.emit(AppSocketEvent.UpdateItem, updatedItem)
     },
     deleteListItem: (id: string) => {
-      socket.emit('deleteItem', id)
+      socket.emit(AppSocketEvent.DeleteItem, id)
     },
     createChildrenListItem: (newChildrenItem: NewListItemChildren) => {
-      socket.emit('createItemChildren', newChildrenItem)
+      socket.emit(AppSocketEvent.CreateItemChildren, newChildrenItem)
     },
     updateConnectedUsers: (connectedUsers: string[]) => set(() => ({ connectedUsers }))
   }
@@ -100,15 +99,15 @@ const createLiveConnectionSlice: StateCreator<LiveConnectionStore> = (set) => {
     const socketAuth = socket.auth as { username: string }
     store.setLoggedIn(socketAuth.username, socket.connected)
     NotificationsService.applicationNotification('success', 'Success', 'Successfully connected')
-    socket.emit('getCurrentData') // Get data after success login/connect
+    socket.emit(AppSocketEvent.GetCurrentData) // Get data after success login/connect
   })
   
-  socket.on('newList', (data: ListItemModel[]) => {
+  socket.on(AppSocketEvent.NewList, (data: ListItemModel[]) => {
     store.setListData(data)
     NotificationsService.applicationNotification('info', 'Update', 'New list recevied')
   })
 
-  socket.on('applicationNotification', (data: ApplicationNotificationModel) => {
+  socket.on(AppSocketEvent.ApplicationNotification, (data: ApplicationNotificationModel) => {
     const message = data.description
     let type: NotificationType = 'info'
     let title = 'Info'
@@ -121,7 +120,7 @@ const createLiveConnectionSlice: StateCreator<LiveConnectionStore> = (set) => {
     NotificationsService.applicationNotification(type,  title, message)
   })
 
-  socket.on('currentUsers', (data: string[]) => {
+  socket.on(AppSocketEvent.CurrentUsers, (data: string[]) => {
     store.updateConnectedUsers(data)
   })
 

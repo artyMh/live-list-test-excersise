@@ -1,6 +1,6 @@
 export type SocketIoDisconnectReason = 'io server disconnect' | 'io client disconnect' | 'ping timeout' | 'transport close' | 'transport error'
 
-export enum AppWebSocketEvent {
+export enum AppSocketEvent {
   GetCurrentData = 'getCurrentData',
   CurrentUsers = 'currentUsers',
   ApplicationNotification = 'applicationNotification',
