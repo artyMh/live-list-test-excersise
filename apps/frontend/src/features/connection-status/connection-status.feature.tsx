@@ -1,7 +1,7 @@
 import { Badge, rem } from '@mantine/core'
 import { IconAt } from '@tabler/icons-react'
 
-import { useLiveConnectionStore } from '@store/live-connection.store'
+import { useLiveConnectionStore } from '~/core/store/live-connection.store'
 
 const ConnectionStatusFeature = (): JSX.Element => {
   const connectedToWs = useLiveConnectionStore(store => store.connectedToWs)

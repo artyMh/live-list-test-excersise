@@ -1,15 +1,15 @@
 import { useMemo } from 'react'
 
 import type { NewListItem } from '@app/core'
-import type { ListItemFilter } from '@models/list-item.model'
+import type { ListItemFilter } from 'src/core/models/list-item.model'
 
 import List from './components/list.component'
 import QuickAddListItem from './components/list-item/list-item-quick-add.component'
 import ListItemFilters from './components/list-item/list-item-filters.component'
 
+import { filterList } from '~/helpers/list.helper'
+import { useLiveConnectionStore } from '~/core/store/live-connection.store'
 import { useListStore } from './list.store'
-import { filterList } from '@helpers/list.helper'
-import { useLiveConnectionStore } from '@store/live-connection.store'
 
 const ListFeature = (): JSX.Element => {
   const listData = useLiveConnectionStore(state => state.listData)

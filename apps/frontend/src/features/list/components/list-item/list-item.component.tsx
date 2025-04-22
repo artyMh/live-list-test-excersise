@@ -3,7 +3,7 @@ import { List as MantineList, Checkbox } from '@mantine/core'
 
 import type { ListItemModel } from '@app/core'
 
-import { useLiveConnectionStore } from '@store/live-connection.store'
+import { useLiveConnectionStore } from '~/core/store/live-connection.store'
 import ListItemControls from './list-item-controls.component'
 import classes from './list-item.module.css'
 

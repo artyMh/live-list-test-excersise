@@ -1,6 +1,6 @@
 import { notifications } from '@mantine/notifications'
 
-import { NotificationType, successNotification } from '@helpers/notifications.helper'
+import { NotificationType, successNotification } from '~/helpers/notifications.helper'
 
 export default class NotificationsService {
 

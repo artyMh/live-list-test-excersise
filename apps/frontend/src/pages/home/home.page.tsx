@@ -2,11 +2,11 @@ import { useNavigate } from 'react-router-dom'
 import { Container, rem } from '@mantine/core'
 import { ErrorBoundary, type FallbackProps } from 'react-error-boundary'
 
-import { RoutesMap } from '@routing/routes-map'
-import ErrorFallback from '@components/error-boundary.component'
-import { reloadPage } from '@helpers/common.helper'
-import LoginFeature from '@features/login/login.feature'
-import { useLiveConnectionStore, WsConnectionState } from '@store/live-connection.store'
+import { RoutesMap } from '~/routing/routes-map'
+import ErrorFallback from '~/common/components/error-boundary.component'
+import { reloadPage } from '~/helpers/common.helper'
+import LoginFeature from '~/features/login/login.feature'
+import { useLiveConnectionStore, WsConnectionState } from 'src/core/store/live-connection.store'
 
 const errorFallback = (props: FallbackProps) => <ErrorFallback {...props} errorText='Something happened on home page'/>
 

@@ -6,12 +6,12 @@ To build & run this codebase you will need:
 - NodeJS v20+
 - NPM v10+
 
-## Start locally
+## Start dev locally
 
-- Create `.env` configuration files for `backend` and `frontend`
+- Create `.env` configuration files for `backend` and `frontend` from `.env.example`
 - Install dependencies `npm i`
-- Run backend `npm run start:frontend`
-- Run frontend `npm run start:backend`
+- Run backend `npm run start:backend`
+- Run frontend `npm run start:frontend`
 
 Default url for frontend is http://localhost:3000
 
@@ -19,7 +19,11 @@ Default url for backend is http://localhost:4000
 
 Details of stories implemented located here http://localhost:3000/about
 
-## Or start with Docker
+## Start with Docker
+
+### Docker compose
+
+Go to root directory and run `docker compose up`
 
 ### Backend
 
@@ -60,26 +64,28 @@ This repository is monorepo done with NPM Workspaces
 - React Router
 - Zustand
 - Socket.IO Client
+- Docker
 
 ### Backend
 
 - TypeScript + ESLint
 - Express
 - Socket.IO
+- Docker
 
 ## What could be better
 
 - Add better toast messages with usernames and items
 - Use enums in websockets events
 - Implement clean DTOs
+- Use `zod` for object schema validator (and possibly add it to `core`?) ?
+  - https://github.com/mantinedev/mantine-form-zod-resolver/issues/2
 - Rework project foldering (bring apps, packages/core)
   - Share DTOs between FE/BE better: `core` workspace
   - Add config `typescript` to be shared from root
   - Add config `eslint` to be shared from root
 - Add docker (docker example https://nodejs.org/en/download) https://github.com/remix-run/react-router-templates/blob/main/javascript/Dockerfile
 - Add save list to disk(persistance?)
-- Use `zod` for object schema validator (and possibly add it to `core`?) ?
-  - https://github.com/mantinedev/mantine-form-zod-resolver/issues/2
 - Nodejs add `helmet`, remove `frameguard` & `x-xss-protection`
 - Fix cors between dev & prod run
 - Add disconnect button

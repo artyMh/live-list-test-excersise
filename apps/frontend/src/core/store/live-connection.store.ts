@@ -4,10 +4,10 @@ import { io } from 'socket.io-client'
 import type { Socket } from 'socket.io-client'
 import type { ListItemModel, NewListItem, NewListItemChildren, UpdateListItem } from '@app/core'
 import type { ApplicationNotificationModel } from '@app/core'
-import type { NotificationType } from '@helpers/notifications.helper'
+import type { NotificationType } from '~/helpers/notifications.helper'
 
-import NotificationsService from '@services/notifications.service'
 import { ApplicationActionType, ApplicationError, AppSocketEvent } from '@app/core'
+import NotificationsService from '~/common/services/notifications.service'
 
 export enum WsConnectionState {
   IDLE,

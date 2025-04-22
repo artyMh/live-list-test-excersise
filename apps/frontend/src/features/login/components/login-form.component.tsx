@@ -1,7 +1,7 @@
 import { Paper, TextInput, Group, Button } from '@mantine/core'
 import { useForm } from '@mantine/form'
 
-import { usernameValidator } from '@helpers/user.helper'
+import { usernameValidator } from '~/helpers/user.helper'
 
 export type LoginFormProps = Readonly<{
   onSubmit: (values: { username: string }) => void

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Center, Container, Grid, SegmentedControl, SegmentedControlItem } from '@mantine/core'
 
-import { ListItemFilter } from '@models/list-item.model'
+import { ListItemFilter } from 'src/core/models/list-item.model'
 
 export type ListItemFiltersProps = Readonly<{
   onFilterChange: (filterValue: ListItemFilter) => void
