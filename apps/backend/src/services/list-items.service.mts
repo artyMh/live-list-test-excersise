@@ -2,7 +2,16 @@ import { v4 as uuidv4 } from 'uuid'
 
 import type { ListItemModel, NewListItemChildren } from '@app/core'
 
-export class ListItemsService {
+export interface IListItemsService {
+  readonly listItems: ListItemModel[]
+  addItem(newItem: ListItemModel): boolean
+  updateItem(itemId: string, updatedItem: ListItemModel): ListItemModel | null
+  addChildrenToItem(newItemChild: NewListItemChildren): ListItemModel | null
+  deleteItem(id: string): boolean
+  findItemById(id: string): ListItemModel | null
+}
+
+export class ListItemsService implements IListItemsService {
   #listItems: ListItemModel[]
 
   get listItems(): ListItemModel[] {

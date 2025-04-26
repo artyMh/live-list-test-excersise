@@ -76,7 +76,7 @@ This repository is monorepo done with NPM Workspaces
 ## What could be better
 
 - Add better toast messages with usernames and items
-- Use enums in websockets events
+- Add handler for offline
 - Implement clean DTOs
 - Use `zod` for object schema validator (and possibly add it to `core`?) ?
   - https://github.com/mantinedev/mantine-form-zod-resolver/issues/2
