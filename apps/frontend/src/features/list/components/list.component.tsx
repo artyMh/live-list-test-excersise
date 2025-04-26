@@ -2,12 +2,12 @@ import { Card } from '@mantine/core'
 import { Alert } from '@mantine/core'
 import { IconInfoCircle } from '@tabler/icons-react'
 
-import type { ListItemModel } from '@app/core'
+import type { ListItemDTO } from '@app/core'
 
 import ListItem from './list-item/list-item.component'
 
 export type ListProps = Readonly<{
-  listData: ListItemModel[]
+  listData: ListItemDTO[]
 }>
 
 const List = ({ listData }: ListProps): JSX.Element => {

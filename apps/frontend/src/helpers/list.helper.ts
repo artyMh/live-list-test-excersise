@@ -1,4 +1,4 @@
-import type { ListItemModel } from '@app/core'
+import type { ListItemDTO } from '@app/core'
 
 import { ListItemFilter } from '~/core/models/list-item.model'
 
@@ -14,7 +14,7 @@ export function labelValidator(labelValue: string): string | null {
   return null
 }
 
-export function filterList(data: ListItemModel[], filterType: ListItemFilter): ListItemModel[] {
+export function filterList(data: ListItemDTO[], filterType: ListItemFilter): ListItemDTO[] {
   if (filterType === 'all') {
     return data
   }
@@ -23,7 +23,7 @@ export function filterList(data: ListItemModel[], filterType: ListItemFilter): L
   return filterListByComplete(completeValue, data)
 }
 
-function filterListByComplete(completeValue: boolean, array: ListItemModel[]): ListItemModel[] {
+function filterListByComplete(completeValue: boolean, array: ListItemDTO[]): ListItemDTO[] {
   const res = []
   for (let i = 0; i <= array.length - 1; i++) {
     let isThere = false
@@ -40,7 +40,7 @@ function filterListByComplete(completeValue: boolean, array: ListItemModel[]): L
   return res
 }
 
-function isThereAnyCompleteValue(completeValue: boolean, array: ListItemModel[]): boolean {
+function isThereAnyCompleteValue(completeValue: boolean, array: ListItemDTO[]): boolean {
   for (const node of array) {
     if (node.completed === completeValue) {
       return true

@@ -1,12 +1,13 @@
 import { v4 as uuidv4 } from 'uuid'
 
-import type { ListItemModel, NewListItemChildren } from '@app/core'
+import type { NewListItemChildrenDTO } from '@app/core'
+import type { ListItemModel } from '@app/core/models/list.model'
 
 export interface IListItemsService {
   readonly listItems: ListItemModel[]
   addItem(newItem: ListItemModel): boolean
   updateItem(itemId: string, updatedItem: ListItemModel): ListItemModel | null
-  addChildrenToItem(newItemChild: NewListItemChildren): ListItemModel | null
+  addChildrenToItem(newItemChild: NewListItemChildrenDTO): ListItemModel | null
   deleteItem(id: string): boolean
   findItemById(id: string): ListItemModel | null
 }
@@ -54,7 +55,7 @@ export class ListItemsService implements IListItemsService {
     return null
   }
 
-  addChildrenToItem(newItemChild: NewListItemChildren): ListItemModel | null {
+  addChildrenToItem(newItemChild: NewListItemChildrenDTO): ListItemModel | null {
     const item = this.#findItem(newItemChild.parentId)
 
     if (item !== null) {

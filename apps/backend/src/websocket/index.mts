@@ -1,9 +1,9 @@
 import { Server as SocketIOServer } from 'socket.io'
 
 import type { Server } from 'node:http'
-import type { NewListItem, NewListItemChildren, UpdateListItem } from '@app/core'
+import type { NewListItemDTO, NewListItemChildrenDTO, UpdateListItemDTO } from '@app/core'
 
-import { ApplicationActionType, ApplicationError, AppSocketEvent } from '@app/core'
+import { AppNotificationType, AppError, AppSocketEvent } from '@app/core'
 import { UsersStoreService } from './users-store.service.mjs'
 import { listPlaceholder } from '~/data/list-placeholder.mjs'
 import { ListItemsService } from '~/services/list-items.service.mjs'
@@ -26,16 +26,16 @@ export default function createWsServer(app: Server) {
     const username = socket.handshake.auth.username
 
     if (!username) {
-      return next(new Error(ApplicationError.ERROR_INVALID_USERNAME))
+      return next(new Error(AppError.ERROR_INVALID_USERNAME))
     }
 
     // TODO: Add validation for username
     if (usersStoreService.isUserExist(username)) {
       logger.warn(`Username '${username}' already exists`)
-      const err = new Error(ApplicationError.ERROR_USERNAME_ALREADY_TAKEN)
+      const err = new Error(AppError.ERROR_USERNAME_ALREADY_TAKEN)
       // FIXME: why this code from docs dont work
       // const errorData: ApplicationActionModel = {
-      //   type: ApplicationActionType.ERROR,
+      //   type: AppNotificationType.ERROR,
       //   description: 'Such username already exist'
       // }
       // err.data = errorData
@@ -53,7 +53,7 @@ export default function createWsServer(app: Server) {
     logger.info(`[Socket:connection]: User '${username}' connected`)
 
     socket.broadcast.emit(AppSocketEvent.ApplicationNotification, {
-      type: ApplicationActionType.INFO,
+      type: AppNotificationType.INFO,
       description: `User "${username}" joined`
     })
     socket.broadcast.emit(AppSocketEvent.CurrentUsers, usersStoreService.getUsers())
@@ -65,19 +65,19 @@ export default function createWsServer(app: Server) {
 
     const userWebSocketHandlerService = new UserWebSocketHandlerService(socket, usersStoreService, listItemService)
 
-    socket.on(AppSocketEvent.QuickAddNewItem, (newItem: NewListItem) => {
+    socket.on(AppSocketEvent.QuickAddNewItem, (newItem: NewListItemDTO) => {
       // TODO: Add data validation
       logger.info(`[Socket:quickAddNewItem]: '${username}' adding new item: '${newItem.label}'`)
       userWebSocketHandlerService.quickAddNewItem(newItem)
     })
 
-    socket.on(AppSocketEvent.UpdateItem, (changedListItem: UpdateListItem) => {
+    socket.on(AppSocketEvent.UpdateItem, (changedListItem: UpdateListItemDTO) => {
       // TODO: Add data validation
       logger.info(`[Socket:UpdateItem]: '${username}' updating item: '${changedListItem.id}:${changedListItem.label}'`)
       userWebSocketHandlerService.updateItem(changedListItem)
     })
 
-    socket.on(AppSocketEvent.CreateItemChildren, (newItemChild: NewListItemChildren) => {
+    socket.on(AppSocketEvent.CreateItemChildren, (newItemChild: NewListItemChildrenDTO) => {
       // TODO: Add data validation
       logger.info(`[Socket:CreateItemChildren]: '${username}' creating item children in parent: '${newItemChild.parentId}:${newItemChild.label}'`)
       userWebSocketHandlerService.createItemChildren(newItemChild)
@@ -93,7 +93,7 @@ export default function createWsServer(app: Server) {
       const infoMessage = `User "${username}" disconnected`
       socket.disconnect()
       socket.broadcast.emit(AppSocketEvent.ApplicationNotification, {
-        type: ApplicationActionType.INFO,
+        type: AppNotificationType.INFO,
         description: infoMessage
       })
       usersStoreService.deleteUser(username)

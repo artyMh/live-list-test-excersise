@@ -2,7 +2,7 @@ import { Button, Checkbox, Group, Modal, ModalProps, TextInput, NumberInput } fr
 import { useForm } from '@mantine/form'
 import { IconEdit, IconPlus, IconCurrencyEuro } from '@tabler/icons-react'
 
-import type { ListItemModel, NewListItemChildren } from '@app/core'
+import type { ListItemDTO, NewListItemChildrenDTO } from '@app/core'
 
 import { labelValidator } from '~/helpers/list.helper'
 
@@ -13,12 +13,12 @@ export enum EditItemModalMode {
 
 export type EditItemModalProps = ModalProps & Readonly<{
   mode: EditItemModalMode
-  listItem: ListItemModel
-  updateItem: (updatedItem: ListItemModel) => void
-  addChildrenToItem: (newChildren: NewListItemChildren) => void
+  listItem: ListItemDTO
+  updateItem: (updatedItem: ListItemDTO) => void
+  addChildrenToItem: (newChildren: NewListItemChildrenDTO) => void
 }>
 
-type ListItemForm = Pick<ListItemModel, 'id' | 'completed' | 'label' | 'cost'>
+type ListItemForm = Pick<ListItemDTO, 'id' | 'completed' | 'label' | 'cost'>
 
 const EditItemModal = ({ opened, onClose, mode, listItem, updateItem, addChildrenToItem }: EditItemModalProps): JSX.Element => {
   const isEditMode = mode === EditItemModalMode.EDIT_ITEM
@@ -37,9 +37,9 @@ const EditItemModal = ({ opened, onClose, mode, listItem, updateItem, addChildre
 
   const onSubmit = (itemFormValues: ListItemForm) => {
     if (isEditMode) {
-      updateItem(itemFormValues as ListItemModel)
+      updateItem(itemFormValues as ListItemDTO)
     } else {
-      const newChildren: NewListItemChildren = { ...itemFormValues, parentId: listItem.id}  
+      const newChildren: NewListItemChildrenDTO = { ...itemFormValues, parentId: listItem.id}  
       addChildrenToItem(newChildren)
     }
     onClose()

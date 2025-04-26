@@ -2,11 +2,11 @@ import { create, StateCreator } from 'zustand'
 import { io } from 'socket.io-client'
 
 import type { Socket } from 'socket.io-client'
-import type { ListItemModel, NewListItem, NewListItemChildren, UpdateListItem } from '@app/core'
-import type { ApplicationNotificationModel } from '@app/core'
+import type { ListItemDTO, NewListItemDTO, NewListItemChildrenDTO, UpdateListItemDTO } from '@app/core'
+import type { AppNotification } from '@app/core'
 import type { NotificationType } from '~/helpers/notifications.helper'
 
-import { ApplicationActionType, ApplicationError, AppSocketEvent } from '@app/core'
+import { AppNotificationType, AppError, AppSocketEvent } from '@app/core'
 import NotificationsService from '~/common/services/notifications.service'
 
 export enum WsConnectionState {
@@ -22,7 +22,7 @@ type LiveConnectionState = {
   connectedToWs: boolean
   username: string
   loggedIn: boolean
-  listData: ListItemModel[]
+  listData: ListItemDTO[]
   connectedUsers: string[]
 }
 
@@ -32,11 +32,11 @@ type LiveConnectionActions = {
   setConnectedValue: (connectedToWs: boolean) => void
   setConnectionStateValue: (wsConnectionState: WsConnectionState) => void
   setLoggedIn: (username: string, connectedToWs: boolean) => void
-  setListData: (listData: ListItemModel[]) => void
-  addListItem: (newItem: NewListItem) => void
-  updateListItem: (updatedItem: UpdateListItem) => void
+  setListData: (listData: ListItemDTO[]) => void
+  addListItem: (newItem: NewListItemDTO) => void
+  updateListItem: (updatedItem: UpdateListItemDTO) => void
   deleteListItem: (id: string) => void
-  createChildrenListItem: (newChildrenItem: NewListItemChildren) => void
+  createChildrenListItem: (newChildrenItem: NewListItemChildrenDTO) => void
   updateConnectedUsers: (connectedUsers: string[]) => void
 }
 
@@ -71,18 +71,18 @@ const createLiveConnectionSlice: StateCreator<LiveConnectionStore> = (set) => {
       loggedIn: true,
       wsConnectionState: WsConnectionState.CONNECTED
     }),
-    setListData: (listData: ListItemModel[]) => set(() => ({ listData })),
+    setListData: (listData: ListItemDTO[]) => set(() => ({ listData })),
 
-    addListItem: (newItem: NewListItem) => {
+    addListItem: (newItem: NewListItemDTO) => {
       socket.emit(AppSocketEvent.QuickAddNewItem, newItem)
     },
-    updateListItem: (updatedItem: UpdateListItem) => {
+    updateListItem: (updatedItem: UpdateListItemDTO) => {
       socket.emit(AppSocketEvent.UpdateItem, updatedItem)
     },
     deleteListItem: (id: string) => {
       socket.emit(AppSocketEvent.DeleteItem, id)
     },
-    createChildrenListItem: (newChildrenItem: NewListItemChildren) => {
+    createChildrenListItem: (newChildrenItem: NewListItemChildrenDTO) => {
       socket.emit(AppSocketEvent.CreateItemChildren, newChildrenItem)
     },
     updateConnectedUsers: (connectedUsers: string[]) => set(() => ({ connectedUsers }))
@@ -102,17 +102,17 @@ const createLiveConnectionSlice: StateCreator<LiveConnectionStore> = (set) => {
     socket.emit(AppSocketEvent.GetCurrentData) // Get data after success login/connect
   })
   
-  socket.on(AppSocketEvent.NewList, (data: ListItemModel[]) => {
+  socket.on(AppSocketEvent.NewList, (data: ListItemDTO[]) => {
     store.setListData(data)
     NotificationsService.applicationNotification('info', 'Update', 'New list recevied')
   })
 
-  socket.on(AppSocketEvent.ApplicationNotification, (data: ApplicationNotificationModel) => {
+  socket.on(AppSocketEvent.ApplicationNotification, (data: AppNotification) => {
     const message = data.description
     let type: NotificationType = 'info'
     let title = 'Info'
 
-    if (data.type === ApplicationActionType.ERROR) {
+    if (data.type === AppNotificationType.ERROR) {
       type = 'error'
       title = 'Server error'
     }
@@ -132,13 +132,12 @@ const createLiveConnectionSlice: StateCreator<LiveConnectionStore> = (set) => {
 
   socket.on('connect_error', (err) => {
     if (err instanceof Error) {
-      console.log('WHAT?', err)
       switch (err.message) {
-        case ApplicationError.ERROR_INVALID_USERNAME:
+        case AppError.ERROR_INVALID_USERNAME:
           NotificationsService.applicationNotification('error', '', 'Invalid username')
           break
 
-        case ApplicationError.ERROR_USERNAME_ALREADY_TAKEN:
+        case AppError.ERROR_USERNAME_ALREADY_TAKEN:
           NotificationsService.applicationNotification('error', '', 'This username already taken')
           break
 

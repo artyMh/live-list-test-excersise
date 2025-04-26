@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import type { NewListItem } from '@app/core'
+import type { NewListItemDTO } from '@app/core'
 import type { ListItemFilter } from 'src/core/models/list-item.model'
 
 import List from './components/list.component'
@@ -20,7 +20,7 @@ const ListFeature = (): JSX.Element => {
   
   const filteredListData = useMemo(() => filterList(structuredClone(listData), filterValue), [filterValue, listData])
 
-  const onAddListItem = (newItem: NewListItem) => {
+  const onAddListItem = (newItem: NewListItemDTO) => {
     addListItem(newItem)
   }
 

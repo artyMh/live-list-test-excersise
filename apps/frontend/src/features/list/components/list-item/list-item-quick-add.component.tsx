@@ -1,12 +1,12 @@
 import { Button, Container, TextInput } from '@mantine/core'
 import { useForm } from '@mantine/form'
 
-import type { NewListItem } from '@app/core'
+import type { NewListItemDTO } from '@app/core'
 
 import { labelValidator } from '~/helpers/list.helper'
 
 export type QuickAddItemProps = Readonly<{
-  onAddItem: (newItem: NewListItem) => void
+  onAddItem: (newItem: NewListItemDTO) => void
 }>
 
 type QuickAddListItemForm = {
