@@ -3,7 +3,8 @@ import { useDisclosure } from '@mantine/hooks'
 import { IconPlus, IconTrash, IconEdit } from '@tabler/icons-react'
 
 import { ListItemDTO, NewListItemChildrenDTO, UpdateListItemDTO } from '@app/core'
-import EditItemModal, { EditItemModalMode } from './list-item-edit-modal.component'
+import { EditItemModalMode } from '~/core/types/edit-item-modal'
+import EditItemModal from './list-item-edit-modal.component'
 
 export type ListItemControlsProps = Readonly<{
   listItem: ListItemDTO

@@ -5,11 +5,7 @@ import { IconEdit, IconPlus, IconCurrencyEuro } from '@tabler/icons-react'
 import type { ListItemDTO, NewListItemChildrenDTO } from '@app/core'
 
 import { labelValidator } from '~/helpers/list.helper'
-
-export enum EditItemModalMode {
-  EDIT_ITEM = 'edit_item',
-  ADD_ITEM_CHILDREN = 'add_item_children'
-}
+import { EditItemModalMode } from '~/core/types/edit-item-modal'
 
 export type EditItemModalProps = ModalProps & Readonly<{
   mode: EditItemModalMode
