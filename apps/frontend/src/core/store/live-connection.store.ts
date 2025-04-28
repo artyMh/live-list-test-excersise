@@ -109,8 +109,8 @@ const createLiveConnectionSlice: StateCreator<LiveConnectionStore> = (set) => {
 
   socket.on(AppSocketEvent.ApplicationNotification, (data: AppNotification) => {
     const message = data.description
-    let type: NotificationType = 'info'
-    let title = 'Info'
+    let type: NotificationType = 'server'
+    let title = 'Server'
 
     if (data.type === AppNotificationType.ERROR) {
       type = 'error'

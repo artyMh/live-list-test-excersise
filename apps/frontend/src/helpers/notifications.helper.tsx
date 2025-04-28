@@ -1,13 +1,14 @@
 import { MantineColor, rem } from '@mantine/core'
 import { NotificationData } from '@mantine/notifications'
-import { IconCheck, IconInfoSmall, IconQuestionMark, IconX } from '@tabler/icons-react'
+import { IconCheck, IconInfoSmall, IconQuestionMark, IconX, IconServer } from '@tabler/icons-react'
 
 const checkIcon = <IconCheck style={{ width: rem(20), height: rem(20) }} />
 const xIcon = <IconX style={{ width: rem(20), height: rem(20) }} />
 const infoIcon = <IconInfoSmall style={{ width: rem(40), height: rem(40) }} />
 const questionIcon = <IconQuestionMark style={{ width: rem(20), height: rem(20) }}/>
+const serverIcon = <IconServer style={{ width: rem(20), height: rem(20) }} />
 
-export type NotificationType = 'success' | 'error' | 'info'
+export type NotificationType = 'success' | 'error' | 'info' | 'server'
 
 export type NotificationExpandedData = NotificationData & Readonly<{
   type: NotificationType
@@ -33,6 +34,12 @@ export function successNotification(notificationData: NotificationExpandedData):
     case 'info': {
       icon = infoIcon
       color = 'blue'
+      break
+    }
+
+    case 'server': {
+      icon = serverIcon
+      color = 'dark'
       break
     }
 
