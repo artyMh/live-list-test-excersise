@@ -1,4 +1,4 @@
-import type { ListItemDTO } from '@app/core'
+import { ListUpdateType, type ListItemDTO, type UpdatedListDTO } from '@app/core'
 
 import { ListItemFilter } from '~/core/models/list-item.model'
 
@@ -52,4 +52,32 @@ function isThereAnyCompleteValue(completeValue: boolean, array: ListItemDTO[]): 
   }
 
   return false
+}
+
+export function buildUpdatedListMessge({ updateSource, updateType }: UpdatedListDTO): string {
+  let type = ''
+
+  switch (updateType) {
+    case ListUpdateType.ADDED_CHILD_ITEM: {
+      type = 'added child item'
+      break
+    }
+
+    case ListUpdateType.ADDED_ITEM: {
+      type = 'added item'
+      break
+    }
+
+    case ListUpdateType.DELETED_ITEM: {
+      type = 'deleted item'
+      break
+    }
+
+    case ListUpdateType.UPDATED_ITEM: {
+      type = 'updated item'
+      break
+    }
+  }
+
+  return `"${updateSource}" ${type}`
 }

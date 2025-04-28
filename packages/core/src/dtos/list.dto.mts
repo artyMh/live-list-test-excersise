@@ -22,7 +22,7 @@ export enum ListUpdateType {
 }
 
 export type UpdatedListDTO = {
-  list: ListItemDTO
+  list: ListItemDTO[]
   updateSource: string // User name
   updateType: ListUpdateType
 }

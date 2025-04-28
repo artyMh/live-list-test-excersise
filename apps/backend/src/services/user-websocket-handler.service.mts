@@ -1,12 +1,11 @@
 import { Socket } from 'socket.io'
 import { v4 as uuidv4 } from 'uuid'
 
-import type { AppNotification, NewListItemDTO, NewListItemChildrenDTO, UpdateListItemDTO } from '@app/core'
+import type { AppNotification, NewListItemDTO, NewListItemChildrenDTO, UpdateListItemDTO, UpdatedListDTO, ListItemDTO } from '@app/core'
 import type { IUsersStoreService } from '~/websocket/users-store.service.mjs'
 import type { IListItemsService } from './list-items.service.mjs'
 
-
-import { AppNotificationType, AppSocketEvent } from '@app/core'
+import { AppNotificationType, AppSocketEvent, ListUpdateType } from '@app/core'
 import logger from '~/logger.mjs'
 
 export interface IUserWebSocketHandlerService {
@@ -39,8 +38,9 @@ export class UserWebSocketHandlerService implements IUserWebSocketHandlerService
 
     if (isAdded) {
       logger.info(`[UserWebSocketHandler:quickAddNewItem]: User '${this.#username}' added new item: '${newItem.label}'`)
-      this.#socket.emit(AppSocketEvent.NewList, this.#listItemService.listItems)
-      this.#socket.broadcast.emit(AppSocketEvent.NewList, this.#listItemService.listItems)
+      const updatedList: UpdatedListDTO =  this.#createUpdatedList(ListUpdateType.ADDED_ITEM)
+      this.#socket.emit(AppSocketEvent.NewList, updatedList)
+      this.#socket.broadcast.emit(AppSocketEvent.NewList, updatedList)
     } else {
       logger.error(`[UserWebSocketHandler:quickAddNewItem] User '${this.#username}' couldn't add new item with label '${newItem.label}'"`)
       const appNotification: AppNotification = {
@@ -56,8 +56,9 @@ export class UserWebSocketHandlerService implements IUserWebSocketHandlerService
 
     if (updatedItem !== null) {
       logger.info(`[UserWebSocketHandler:updateItem]: User '${this.#username}' updated item: '${updatedItem.label}'`)
-      this.#socket.emit(AppSocketEvent.NewList, this.#listItemService.listItems)
-      this.#socket.broadcast.emit(AppSocketEvent.NewList, this.#listItemService.listItems)
+      const updatedList: UpdatedListDTO =  this.#createUpdatedList(ListUpdateType.UPDATED_ITEM)
+      this.#socket.emit(AppSocketEvent.NewList, updatedList)
+      this.#socket.broadcast.emit(AppSocketEvent.NewList, updatedList)
     } else {
       logger.error(`[UserWebSocketHandler:updateItem] Couldn't find item with id '${changedListItem.id}':'${changedListItem.label}'`)
       const appNotification: AppNotification = {
@@ -73,8 +74,9 @@ export class UserWebSocketHandlerService implements IUserWebSocketHandlerService
 
     if (newChildItem !== null) {
       logger.info(`[UserWebSocketHandler:createItemChildren]: User '${this.#username}' added child '${newItemChild.label}' to '${newItemChild.parentId}'`)
-      this.#socket.emit(AppSocketEvent.NewList, this.#listItemService.listItems)
-      this.#socket.broadcast.emit(AppSocketEvent.NewList, this.#listItemService.listItems)
+      const updatedList: UpdatedListDTO =  this.#createUpdatedList(ListUpdateType.ADDED_CHILD_ITEM)
+      this.#socket.emit(AppSocketEvent.NewList, updatedList)
+      this.#socket.broadcast.emit(AppSocketEvent.NewList, updatedList)
     } else {
       logger.error(`[UserWebSocketHandler:createItemChildren] Couldn't find item with id '${newItemChild.parentId}':'${newItemChild.label}'`)
       const appNotification: AppNotification = {
@@ -103,8 +105,9 @@ export class UserWebSocketHandlerService implements IUserWebSocketHandlerService
 
     if (isDeleted) {
       logger.info(`[UserWebSocketHandler:deleteItem]: User '${this.#username}' deleted item: '${id}':'${itemForDelete.label}'`)
-      this.#socket.emit(AppSocketEvent.NewList, this.#listItemService.listItems)
-      this.#socket.broadcast.emit(AppSocketEvent.NewList, this.#listItemService.listItems)
+      const updatedList: UpdatedListDTO = this.#createUpdatedList(ListUpdateType.DELETED_ITEM)
+      this.#socket.emit(AppSocketEvent.NewList, updatedList)
+      this.#socket.broadcast.emit(AppSocketEvent.NewList, updatedList)
     } else {
       logger.error(`[UserWebSocketHandler:deleteItem] Couldn't delete item with id: '${id}':"${itemForDelete.label}"`)
       const appNotification: AppNotification = {
@@ -112,6 +115,14 @@ export class UserWebSocketHandlerService implements IUserWebSocketHandlerService
         description: `Error occured deleting '${itemForDelete.label}' item`
       }
       this.#socket.emit(AppSocketEvent.ApplicationNotification, appNotification)
+    }
+  }
+
+  #createUpdatedList(updateType: ListUpdateType): UpdatedListDTO {
+    return {
+      list: this.#listItemService.listItems as unknown as ListItemDTO[],
+      updateSource: this.#username,
+      updateType,
     }
   }
 }

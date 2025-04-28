@@ -1,7 +1,7 @@
 import { Server as SocketIOServer } from 'socket.io'
 
 import type { Server } from 'node:http'
-import type { NewListItemDTO, NewListItemChildrenDTO, UpdateListItemDTO } from '@app/core'
+import type { NewListItemDTO, NewListItemChildrenDTO, UpdateListItemDTO, InitialDataDTO } from '@app/core'
 
 import { AppNotificationType, AppError, AppSocketEvent } from '@app/core'
 import { UsersStoreService } from './users-store.service.mjs'
@@ -21,7 +21,7 @@ export default function createWsServer(app: Server) {
     }
   })
 
-  // SocketIO middleware
+  // SocketIO middleware for auth
   socketIO.use((socket, next) => {
     const username = socket.handshake.auth.username
 
@@ -48,6 +48,8 @@ export default function createWsServer(app: Server) {
     next()
   })
 
+  // TODO: add middleware for allowed events
+
   socketIO.on('connection', (socket) => {
     const username = socket.handshake.auth.username
     logger.info(`[Socket:connection]: User '${username}' connected`)
@@ -58,9 +60,12 @@ export default function createWsServer(app: Server) {
     })
     socket.broadcast.emit(AppSocketEvent.CurrentUsers, usersStoreService.getUsers())
 
-    socket.on(AppSocketEvent.GetCurrentData, () => {
-      socket.emit(AppSocketEvent.NewList, listItemService.listItems)
-      socket.emit(AppSocketEvent.CurrentUsers, usersStoreService.getUsers())
+    socket.on(AppSocketEvent.GetInitialData, () => {
+      const initialData: InitialDataDTO = {
+        list:  listItemService.listItems,
+        users: usersStoreService.getUsers()
+      }
+      socket.emit(AppSocketEvent.InitialData, initialData)
     })
 
     const userWebSocketHandlerService = new UserWebSocketHandlerService(socket, usersStoreService, listItemService)

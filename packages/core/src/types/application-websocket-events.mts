@@ -1,9 +1,10 @@
 export type SocketIoDisconnectReason = 'io server disconnect' | 'io client disconnect' | 'ping timeout' | 'transport close' | 'transport error'
 
 export enum AppSocketEvent {
-  GetCurrentData = 'getCurrentData',
+  GetInitialData = 'getInitialData',
+  InitialData = 'getInitialData',
+  ApplicationNotification = 'applicationNotification', 
   CurrentUsers = 'currentUsers',
-  ApplicationNotification = 'applicationNotification',
   NewList = 'newList',
   QuickAddNewItem = 'quickAddNewItem',
   UpdateItem = 'updateItem',

@@ -14,7 +14,7 @@ export type NotificationExpandedData = NotificationData & Readonly<{
   type: NotificationType
 }>
 
-export function successNotification(notificationData: NotificationExpandedData): NotificationData {
+export function buildNotification(notificationData: NotificationExpandedData): NotificationData {
   let icon: JSX.Element
   let color: MantineColor
 
