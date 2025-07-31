@@ -16,7 +16,7 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 5",
     "lint:fix": "eslint . --ext ts,tsx --fix",
     "prebuild": "npm run clean",
-    "build": "tsc --build tsconfig.build.json",
+    "build": "tsc --build tsconfig.build.json && resolve-tspaths",
     "clean": "tsc --build tsconfig.build.json --clean",
     "postclean": "rimraf dist"
   },
@@ -39,6 +39,7 @@
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
     "eslint": "^8.56.0",
+    "resolve-tspaths": "^0.8.23",
     "rimraf": "^6.0.1",
     "tsx": "^4.16.2",
     "typescript": "^5.7.3"
