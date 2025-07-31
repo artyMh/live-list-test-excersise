@@ -77,19 +77,16 @@ This repository is monorepo done with NPM Workspaces
 
 - Add better toast messages with usernames and items
 - Add handler for offline
-- Implement clean DTOs
+- Add disconnect button
+- Add route layout elements & add handle for 404?
 - Use `zod` for object schema validator (and possibly add it to `core`?) ?
   - https://github.com/mantinedev/mantine-form-zod-resolver/issues/2
 - Rework project foldering (bring apps, packages/core)
   - Share DTOs between FE/BE better: `core` workspace
   - Add config `typescript` to be shared from root
   - Add config `eslint` to be shared from root
-- Add docker (docker example https://nodejs.org/en/download) https://github.com/remix-run/react-router-templates/blob/main/javascript/Dockerfile
-- Add save list to disk(persistance?)
 - Nodejs add `helmet`, remove `frameguard` & `x-xss-protection`
 - Fix cors between dev & prod run
-- Add disconnect button
-- Add route layout elements & add handle for 404?
 - Update:
   - Node to v22 and npm 11
   - React v19 + Mantine
