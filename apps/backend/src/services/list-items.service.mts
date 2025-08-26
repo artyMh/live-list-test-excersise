@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid'
 
 import type { NewListItemChildrenDTO } from '@app/core'
-import type { ListItemModel } from '@app/core/models/list.model'
+import type { ListItemModel } from '~/models/list.model.mjs'
 
 export interface IListItemsService {
   readonly listItems: ListItemModel[]
