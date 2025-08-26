@@ -79,6 +79,7 @@ This repository is monorepo done with NPM Workspaces
 - Add handler for offline
 - Add disconnect button
 - Add route layout elements & add handle for 404?
+- Add `eslint-plugin-jsx-a11y`
 - Use `zod` for object schema validator (and possibly add it to `core`?) ?
   - https://github.com/mantinedev/mantine-form-zod-resolver/issues/2
 - Rework project foldering (bring apps, packages/core)

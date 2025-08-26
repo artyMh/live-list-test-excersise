@@ -4,7 +4,7 @@ import type { Server } from 'node:http'
 import type { NewListItemDTO, NewListItemChildrenDTO, UpdateListItemDTO, InitialDataDTO } from '@app/core'
 
 import { AppNotificationType, AppError, AppSocketEvent } from '@app/core'
-import { UsersStoreService } from './users-store.service.mjs'
+import { UsersStoreService } from '~/services/users-store.service.mjs'
 import { listPlaceholder } from '~/data/list-placeholder.mjs'
 import { ListItemsService } from '~/services/list-items.service.mjs'
 import { UserWebSocketHandlerService } from '~/services/user-websocket-handler.service.mjs'

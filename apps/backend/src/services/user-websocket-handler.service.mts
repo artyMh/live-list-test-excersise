@@ -2,7 +2,7 @@ import { Socket } from 'socket.io'
 import { v4 as uuidv4 } from 'uuid'
 
 import type { AppNotification, NewListItemDTO, NewListItemChildrenDTO, UpdateListItemDTO, UpdatedListDTO, ListItemDTO } from '@app/core'
-import type { IUsersStoreService } from '~/websocket/users-store.service.mjs'
+import type { IUsersStoreService } from '~/services/users-store.service.mjs'
 import type { IListItemsService } from './list-items.service.mjs'
 
 import { AppNotificationType, AppSocketEvent, ListUpdateType } from '@app/core'
@@ -21,10 +21,10 @@ export class UserWebSocketHandlerService implements IUserWebSocketHandlerService
   #usersStoreService: IUsersStoreService
   #listItemService: IListItemsService
 
-  constructor(socket: Socket, UsersStoreService: IUsersStoreService, listItemService: IListItemsService) {
+  constructor(socket: Socket, usersStoreService: IUsersStoreService, listItemService: IListItemsService) {
     this.#socket = socket
     this.#username = socket.handshake.auth.username
-    this.#usersStoreService = UsersStoreService
+    this.#usersStoreService = usersStoreService
     this.#listItemService = listItemService
   }
 
