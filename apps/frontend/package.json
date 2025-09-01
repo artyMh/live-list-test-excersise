@@ -18,9 +18,11 @@
   },
   "engines": {
     "node": ">=20.0.0",
-    "npm": ">=10.0.0"
+    "pnpm": "10.15.0"
   },
+  "packageManager": "pnpm@10.15.0",
   "dependencies": {
+    "@app/core": "workspace:*",
     "@mantine/core": "^7.11.2",
     "@mantine/form": "^7.11.2",
     "@mantine/hooks": "^7.11.2",

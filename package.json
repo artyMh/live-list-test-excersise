@@ -10,22 +10,23 @@
     "url": "git+https://github.com/artyMh/live-list-test-excersise.git"
   },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "clean": "tsc --build --clean",
     "build": "tsc --build",
-    "build:frontend": "npm run build -w apps/frontend",
-    "build:backend": "npm run build -w apps/backend",
-    "start:frontend": "npm run start:dev -w apps/frontend",
-    "start:backend": "npm run start:dev -w apps/backend"
+    "build:frontend": "pnpm run --filter \"@app/frontend\" build",
+    "build:backend": "pnpm run --filter \"@app/backend\" build",
+    "start:frontend": "pnpm run --filter \"@app/frontend\" start:dev",
+    "start:backend": "pnpm run --filter \"@app/backend\" start:dev"
   },
   "workspaces": [
-    "apps/frontend",
-    "apps/backend",
-    "packages/core"
+    "apps/*",
+    "packages/*"
   ],
   "engines": {
-    "node": ">=20.0.0",
-    "npm": ">=10.0.0"
+    "node": ">=22.0.0",
+    "pnpm": "10.15.0"
   },
+  "packageManager": "pnpm@10.15.0",
   "devDependencies": {
     "typescript": "^5.7.3"
   }

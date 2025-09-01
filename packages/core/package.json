@@ -18,7 +18,7 @@
     "./*": "./dist/*.mjs"
   },
   "scripts": {
-    "prebuild": "npm run clean",
+    "prebuild": "pnpm run clean",
     "build": "tsc --build tsconfig.build.json --verbose",
     "clean": "tsc --build tsconfig.build.json --clean",
     "postclean": "rimraf dist"

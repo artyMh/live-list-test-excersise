@@ -1,58 +1,26 @@
-# Technical test
-
 ## Requirements
 
 To build & run this codebase you will need:
-- NodeJS v20+
-- NPM v10+
+- NodeJS v22+
+- pnpm v10+
 
-## Start dev locally
-
-- Create `.env` configuration files for `backend` and `frontend` from `.env.example`
-- Install dependencies `npm i`
-- Run backend `npm run start:backend`
-- Run frontend `npm run start:frontend`
-
-Default url for frontend is http://localhost:3000
-
-Default url for backend is http://localhost:4000
-
-Details of stories implemented located here http://localhost:3000/about
-
-## Start with Docker
+## Start
 
 ### Docker compose
 
 Go to root directory and run `docker compose up`
 
-### Backend
+### Start dev locally
 
-Build & run `apps/backend` image:
+- Create `.env` configuration files for `backend` and `frontend` from `.env.example` inside each apps
+- Install dependencies `pnpm i`
+- Run backend `pnpm run start:backend`
+- Run frontend `pnpm run start:frontend`
 
-1. Go to root directory and run docker image build:
-    - `docker build -t live-list-backend . -f Dockerfile.backend`
+Default url for frontend is http://localhost:3000
+Default url for backend is http://localhost:4000
 
-2. Then run created image
-    - `docker run -dp 4000:4000 live-list-backend`
-  
-### Frontend
-
-Build & run `apps/frontend` image:
-
-1. Go to root directory and run docker image build:
-    - `docker build -t live-list-frontend . -f Dockerfile.frontend`
-2. Then run created image
-    - `docker run -dp 80:3000 live-list-frontend`
-
-<br/>
-
-## Repository Organisation
-
-This repository is monorepo done with NPM Workspaces
-
-- `apps/backend` - backend part of application, containing business and WebSocket logic
-- `apps/frontend` - frontend part of application, works with backend
-- `packages/core` - code & logic, which is shared between frontend and backend (DTOs, etc)
+<br />
 
 ## Stack
 
@@ -72,6 +40,17 @@ This repository is monorepo done with NPM Workspaces
 - Express
 - Socket.IO
 - Docker
+
+<br />
+
+## Repository Organisation
+
+This repository is monorepo done with NPM Workspaces
+
+- `apps/backend` - backend part of application, containing business and WebSocket logic
+- `apps/frontend` - frontend part of application, works with backend
+- `packages/core` - code & logic, which is shared between frontend and backend (DTOs, etc)
+
 
 ## What could be better
 
@@ -106,3 +85,28 @@ This repository is monorepo done with NPM Workspaces
 - Add e2e tests
 - Add .editor config
 - Add translate?
+
+<br />
+
+## How to's
+
+### Backend docker build
+
+Build & run `apps/backend` image:
+
+1. Go to root directory and run docker image build:
+    - `docker build -t live-list-backend . -f Dockerfile.backend`
+
+2. Then run created image
+    - `docker run -dp 4000:4000 live-list-backend`
+  
+### Frontend docker build
+
+Build & run `apps/frontend` image:
+
+1. Go to root directory and run docker image build:
+    - `docker build -t live-list-frontend . -f Dockerfile.frontend`
+2. Then run created image
+    - `docker run -dp 80:3000 live-list-frontend`
+
+<br/>
