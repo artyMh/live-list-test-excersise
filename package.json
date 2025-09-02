@@ -12,6 +12,7 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "clean": "tsc --build --clean",
+    "postclean": "pnpm run -r clean",
     "build": "tsc --build",
     "build:frontend": "pnpm run --filter \"@app/frontend\" build",
     "build:backend": "pnpm run --filter \"@app/backend\" build",
