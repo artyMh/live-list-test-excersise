@@ -5,8 +5,8 @@ import cors from 'cors'
 // import frameguard from 'frameguard'
 // import xXssProtection from 'x-xss-protection'
 
-import createWsServer from './websocket/index.mjs'
-import logger from './logger.mjs'
+import createWsServer from './websocket/index.js'
+import logger from './logger.js'
 
 configuration.config()
 const SERVER_PORT = process.env.PORT

@@ -4,12 +4,12 @@ import type { Server } from 'node:http'
 import type { NewListItemDTO, NewListItemChildrenDTO, UpdateListItemDTO, InitialDataDTO } from '@app/core'
 
 import { AppNotificationType, AppError, AppSocketEvent } from '@app/core'
-import { UsersStoreService } from '~/services/users-store.service.mjs'
-import { listPlaceholder } from '~/data/list-placeholder.mjs'
-import { ListItemsService } from '~/services/list-items.service.mjs'
-import { UserWebSocketHandlerService } from '~/services/user-websocket-handler.service.mjs'
+import { UsersStoreService } from '~/services/users-store.service.js'
+import { listPlaceholder } from '~/data/list-placeholder.js'
+import { ListItemsService } from '~/services/list-items.service.js'
+import { UserWebSocketHandlerService } from '~/services/user-websocket-handler.service.js'
 
-import logger from '../logger.mjs'
+import logger from '../logger.js'
 
 const usersStoreService = new UsersStoreService()
 const listItemService = new ListItemsService(listPlaceholder)

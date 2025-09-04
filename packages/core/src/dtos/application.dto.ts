@@ -1,4 +1,4 @@
-import { ListItemDTO } from './list.dto.mjs'
+import { ListItemDTO } from './list.dto.js'
 
 export type InitialDataDTO = {
   list: ListItemDTO[]

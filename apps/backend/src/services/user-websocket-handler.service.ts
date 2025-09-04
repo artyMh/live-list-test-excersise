@@ -2,11 +2,11 @@ import { Socket } from 'socket.io'
 import { v4 as uuidv4 } from 'uuid'
 
 import type { AppNotification, NewListItemDTO, NewListItemChildrenDTO, UpdateListItemDTO, UpdatedListDTO, ListItemDTO } from '@app/core'
-import type { IUsersStoreService } from '~/services/users-store.service.mjs'
-import type { IListItemsService } from './list-items.service.mjs'
+import type { IUsersStoreService } from '~/services/users-store.service.js'
+import type { IListItemsService } from './list-items.service.js'
 
 import { AppNotificationType, AppSocketEvent, ListUpdateType } from '@app/core'
-import logger from '~/logger.mjs'
+import logger from '~/logger.js'
 
 export interface IUserWebSocketHandlerService {
   quickAddNewItem(newItem: NewListItemDTO): void

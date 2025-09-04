@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 
-import type { ListItemModel } from '~/models/list.model.mjs'
+import type { ListItemModel } from '~/models/list.model.js'
 
 export const listPlaceholder: ListItemModel[] = [
   {

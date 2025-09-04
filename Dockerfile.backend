@@ -9,4 +9,4 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm --filter=@app/backend run build
 
 EXPOSE $PORT
-CMD ["node", "apps/backend/dist/index.mjs"]
+CMD ["node", "apps/backend/dist/index.js"]

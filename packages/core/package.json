@@ -14,8 +14,8 @@
     "./dist"
   ],
   "exports": {
-    ".": "./dist/index.mjs",
-    "./*": "./dist/*.mjs"
+    ".": "./dist/index.js",
+    "./*": "./dist/*.js"
   },
   "scripts": {
     "prebuild": "pnpm run clean",
