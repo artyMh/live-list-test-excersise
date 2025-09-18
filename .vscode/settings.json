@@ -1,0 +1,22 @@
+{
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": true,
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/.hg/store/**": true,
+    "**/.git/**": true,
+    "**/node_modules/**": true,
+    "**/.vscode/**": true
+  },
+  "eslint.useFlatConfig": true,
+  "eslint.workingDirectories": [
+    {
+      "pattern": "./apps/*/"
+    },
+    {
+      "pattern": "./packages/*/"
+    }
+  ],
+}
