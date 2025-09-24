@@ -49,15 +49,21 @@ This repository is monorepo done with NPM Workspaces
 
 - `apps/backend` - backend part of application, containing business and WebSocket logic
 - `apps/frontend` - frontend part of application, works with backend
-- `packages/core` - code & logic, which is shared between frontend and backend (DTOs, etc)
+- `packages/core` - things which are shared between multiple apps (DTOs, etc)
 
 
 ## What could be better
 
-- Add better toast messages with usernames and items
+- Create eslint-config
+- Create typescript-config
+- Add turborepo
+- Update to React v19
+- Migrate from Mantine to Shadcn
 - Add handler for offline
 - Add disconnect button
+- Add leave page handler to make an websocket event
 - Add route layout elements & add handle for 404?
+- Add better toast messages with usernames and items
 - Add `eslint-plugin-jsx-a11y`
 - Use `zod` for object schema validator (and possibly add it to `core`?) ?
   - https://github.com/mantinedev/mantine-form-zod-resolver/issues/2
@@ -110,3 +116,12 @@ Build & run `apps/frontend` image:
     - `docker run -dp 80:3000 live-list-frontend`
 
 <br/>
+
+
+DBs info:
+https://www.suprsend.com/post/how-to-build-a-real-time-chat-app-with-mern-stack-and-suprsend-javascript-sdk
+https://github.com/nik-l9/Chatting-App/tree/main
+https://www.mongodb.com/community/forums/t/advice-for-chat-schema-design/114166/8
+https://www.reddit.com/r/mongodb/comments/1g3jxak/advice_needed_for_chat_application_schema_design/
+https://insideofcode.com/which-is-better-for-your-chat-app-mongodb-or-postgresql/
+https://www.reddit.com/r/Database/comments/1fw866e/would_mongodb_be_scalable_choice_for_a_chat_app/

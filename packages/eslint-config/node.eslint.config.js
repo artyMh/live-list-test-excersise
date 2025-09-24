@@ -1,8 +1,10 @@
-import js from "@eslint/js";
-import { defineConfig } from "eslint/config";
-import tseslint from "typescript-eslint";
+import js from '@eslint/js';
+import { defineConfig } from 'eslint/config';
+import tseslint from 'typescript-eslint';
 import stylistic from '@stylistic/eslint-plugin'
-import globals from "globals";
+import globals from 'globals';
+
+import baseRules from './base-eslint-rules.js'
 
 export default defineConfig([
   tseslint.configs.recommended,
@@ -17,43 +19,8 @@ export default defineConfig([
       globals: { ...globals.node }
     },
     rules: {
-      'semi': 'off',
-      'quotes': 'off',
-      'indent': 'off',
-      'no-unused-vars': ['off'],
-      'no-console': 'warn',
-      'no-cond-assign': 'off',
-      'no-unreachable': 'warn',
-      'no-extra-boolean-cast': 'warn',
-      'padding-line-between-statements': [ 'error',
-        {
-          'blankLine': 'always',
-          'prev': '*',
-          'next': 'return'
-        },
-        {
-          'blankLine': 'always',
-          'prev': [ 'case', 'default' ],
-          'next': '*'
-        }
-      ],
-      'no-implicit-coercion': [ 'error' ],
+      ...baseRules.rules,
 
-      '@stylistic/indent': ['error', 2],
-      '@stylistic/semi': [ 'error', 'never' ],
-      '@stylistic/quotes': [ 'error', 'single' ],
-      '@stylistic/member-delimiter-style': [ 'error',
-        {
-          'multiline': {
-            'delimiter': 'none',
-            'requireLast': true
-          },
-          'singleline': {
-            'delimiter': 'comma',
-            'requireLast': false
-          }
-        }
-      ],
       '@typescript-eslint/no-empty-function': 'off',
       '@typescript-eslint/naming-convention': [ 'error',
         {
