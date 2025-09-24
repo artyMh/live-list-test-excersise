@@ -13,7 +13,7 @@ export class UsersStoreService implements IUsersStoreService {
   }
 
   public deleteUser(username: string): void {
-    this.#users = this.#users.filter((value) => value !== username)
+    this.#users = this.#users.filter(value => value !== username)
   }
 
   public isUserExist(username: string): boolean {

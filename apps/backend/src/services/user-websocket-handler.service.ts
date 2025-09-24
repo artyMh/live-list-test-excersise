@@ -45,7 +45,7 @@ export class UserWebSocketHandlerService implements IUserWebSocketHandlerService
       logger.error(`[UserWebSocketHandler:quickAddNewItem] User '${this.#username}' couldn't add new item with label '${newItem.label}'"`)
       const appNotification: AppNotification = {
         type: AppNotificationType.ERROR,
-        description: `Error occured adding '${newItem.label}' item`
+        description: `Error occured adding '${newItem.label}' item`,
       }
       this.#socket.emit(AppSocketEvent.ApplicationNotification, appNotification)
     }
@@ -63,7 +63,7 @@ export class UserWebSocketHandlerService implements IUserWebSocketHandlerService
       logger.error(`[UserWebSocketHandler:updateItem] Couldn't find item with id '${changedListItem.id}':'${changedListItem.label}'`)
       const appNotification: AppNotification = {
         type: AppNotificationType.ERROR,
-        description: `Error occured updating '${changedListItem.label}' item`
+        description: `Error occured updating '${changedListItem.label}' item`,
       }
       this.#socket.emit(AppSocketEvent.ApplicationNotification, appNotification)
     }
@@ -81,7 +81,7 @@ export class UserWebSocketHandlerService implements IUserWebSocketHandlerService
       logger.error(`[UserWebSocketHandler:createItemChildren] Couldn't find item with id '${newItemChild.parentId}':'${newItemChild.label}'`)
       const appNotification: AppNotification = {
         type: AppNotificationType.ERROR,
-        description: `Error occured adding ${newItemChild.label} item in '${newItemChild.parentId}'`
+        description: `Error occured adding ${newItemChild.label} item in '${newItemChild.parentId}'`,
       }
       this.#socket.emit(AppSocketEvent.ApplicationNotification, appNotification)
     }
@@ -94,7 +94,7 @@ export class UserWebSocketHandlerService implements IUserWebSocketHandlerService
       logger.error(`[UserWebSocketHandler:deleteItem]: User '${this.#username}' can't find item for delete: '${id}'`)
       const appNotification: AppNotification = {
         type: AppNotificationType.ERROR,
-        description: `Error occured deleting item with id '${id}' item`
+        description: `Error occured deleting item with id '${id}' item`,
       }
       this.#socket.emit(AppSocketEvent.ApplicationNotification, appNotification)
       
@@ -112,7 +112,7 @@ export class UserWebSocketHandlerService implements IUserWebSocketHandlerService
       logger.error(`[UserWebSocketHandler:deleteItem] Couldn't delete item with id: '${id}':"${itemForDelete.label}"`)
       const appNotification: AppNotification = {
         type: AppNotificationType.ERROR,
-        description: `Error occured deleting '${itemForDelete.label}' item`
+        description: `Error occured deleting '${itemForDelete.label}' item`,
       }
       this.#socket.emit(AppSocketEvent.ApplicationNotification, appNotification)
     }

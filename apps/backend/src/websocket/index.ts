@@ -17,8 +17,8 @@ const listItemService = new ListItemsService(listPlaceholder)
 export default function createWsServer(app: Server) {
   const socketIO = new SocketIOServer(app, {
     cors: {
-      origin: process.env.CLIENT_URL
-    }
+      origin: process.env.CLIENT_URL,
+    },
   })
 
   // SocketIO middleware for auth
@@ -50,20 +50,20 @@ export default function createWsServer(app: Server) {
 
   // TODO: add middleware for allowed events
 
-  socketIO.on('connection', (socket) => {
+  socketIO.on('connection', socket => {
     const username = socket.handshake.auth.username
     logger.info(`[Socket:connection]: User '${username}' connected`)
 
     socket.broadcast.emit(AppSocketEvent.ApplicationNotification, {
       type: AppNotificationType.INFO,
-      description: `User "${username}" joined`
+      description: `User "${username}" joined`,
     })
     socket.broadcast.emit(AppSocketEvent.CurrentUsers, usersStoreService.getUsers())
 
     socket.on(AppSocketEvent.GetInitialData, () => {
       const initialData: InitialDataDTO = {
         list:  listItemService.listItems,
-        users: usersStoreService.getUsers()
+        users: usersStoreService.getUsers(),
       }
       socket.emit(AppSocketEvent.InitialData, initialData)
     })
@@ -99,7 +99,7 @@ export default function createWsServer(app: Server) {
       socket.disconnect()
       socket.broadcast.emit(AppSocketEvent.ApplicationNotification, {
         type: AppNotificationType.INFO,
-        description: infoMessage
+        description: infoMessage,
       })
       usersStoreService.deleteUser(username)
       socket.broadcast.emit(AppSocketEvent.CurrentUsers, usersStoreService.getUsers())

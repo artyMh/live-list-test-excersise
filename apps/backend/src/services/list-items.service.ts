@@ -63,12 +63,12 @@ export class ListItemsService implements IListItemsService {
         id: uuidv4(),
         completed: newItemChild.completed,
         label: newItemChild.label,
-        cost: newItemChild.cost ?? 0
+        cost: newItemChild.cost ?? 0,
       }
       if (item.children) {
         item.children.push(newChildItem)
       } else {
-        item.children = [ newChildItem ]
+        item.children = [newChildItem]
       }
 
       this.#recalculateAllCosts()

@@ -19,12 +19,9 @@ const logger = winston.createLogger({
   level: 'info',
   format: winston.format.json(),
   defaultMeta: { service: 'server' },
-  transports: [
-    new winston.transports.Console({
-      format: winston.format.combine(winston.format.colorize(), logFormat)
-    }),
-    new winston.transports.File({ filename: 'logs.log' })
-  ],
+  transports: [new winston.transports.Console({
+    format: winston.format.combine(winston.format.colorize(), logFormat),
+  }), new winston.transports.File({ filename: 'logs.log' })],
 })
 
 export default logger
