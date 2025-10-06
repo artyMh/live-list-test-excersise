@@ -62,7 +62,7 @@ export default function createWsServer(app: Server) {
 
     socket.on(AppSocketEvent.GetInitialData, () => {
       const initialData: InitialDataDTO = {
-        list:  listItemService.listItems,
+        list: listItemService.listItems,
         users: usersStoreService.getUsers(),
       }
       socket.emit(AppSocketEvent.InitialData, initialData)
