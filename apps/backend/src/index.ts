@@ -1,9 +1,12 @@
 import express from 'express'
-import { createServer } from 'node:http'
+import {createServer} from 'node:http'
 import configuration from 'dotenv'
 import cors from 'cors'
-// import frameguard from 'frameguard'
-// import xXssProtection from 'x-xss-protection'
+
+/*
+ * import frameguard from 'frameguard'
+ * import xXssProtection from 'x-xss-protection'
+ */
 
 import createWsServer from './websocket/index.js'
 import logger from './logger.js'
@@ -20,5 +23,7 @@ app.use(cors())
 // app.use(xXssProtection())
 
 server.listen(SERVER_PORT, () => {
+
   logger.info(`Server running at port ${SERVER_PORT}`)
+
 })
