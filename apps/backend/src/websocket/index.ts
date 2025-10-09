@@ -102,7 +102,9 @@ export default function createWsServer (app: Server) {
     socket.on(AppSocketEvent.CreateItemChildren, (newItemChild: NewListItemChildrenDTO) => {
 
       // TODO: Add data validation
-      logger.info(`[Socket:CreateItemChildren]: '${username}' creating item children in parent: '${newItemChild.parentId}:${newItemChild.label}'`)
+      logger.info(
+        `[Socket:CreateItemChildren]: '${username}' creating item children in parent: '${newItemChild.parentId}:${newItemChild.label}'`
+      )
       userWebSocketHandlerService.createItemChildren(newItemChild)
 
     })

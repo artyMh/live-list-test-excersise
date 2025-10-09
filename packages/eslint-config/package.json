@@ -4,9 +4,19 @@
   "description": "ESLint configs for monorepo",
   "type": "module",
   "exports": {
-    "./react": "./react.eslint.config.js",
+    "./react": {
+      "require": [
+        "./style-eslint-rules.js",
+        "./base-eslint-rules.js",
+        "./jsx-style-eslint-rules.js"
+      ],
+      "default": "./react.eslint.config.js"
+    },
     "./node": {
-      "require": "./base-eslint-rules.js",
+      "require": [
+        "./style-eslint-rules.js",
+        "./base-eslint-rules.js"
+      ],
       "default": "./node.eslint.config.js"
     }
   },
@@ -21,7 +31,10 @@
     "@eslint/js": "^9.35.0",
     "@stylistic/eslint-plugin": "^5.3.1",
     "eslint": "^9.35.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.4.0",
     "typescript-eslint": "^8.44.0"
   }

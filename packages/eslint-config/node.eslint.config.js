@@ -5,6 +5,7 @@ import stylistic from '@stylistic/eslint-plugin'
 import globals from 'globals';
 
 import baseRules from './base-eslint-rules.js'
+import styleRules from './style-eslint-rules.js'
 
 export default defineConfig([
   tseslint.configs.recommended,
@@ -16,10 +17,11 @@ export default defineConfig([
     },
     extends: ["js/recommended"],
     languageOptions: {
-      globals: { ...globals.node }
+      globals: { ...globals.node },
     },
     rules: {
       ...baseRules.rules,
+      ...styleRules.rules,
 
       '@typescript-eslint/no-empty-function': 'off',
       '@typescript-eslint/naming-convention': [ 'error',

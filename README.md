@@ -57,8 +57,9 @@ This repository is monorepo done with NPM Workspaces
 - Create eslint-config
 - Create typescript-config
 - Add turborepo
-- Update to React v19
 - Migrate from Mantine to Shadcn
+  - https://github.com/neigebaie/shadcn-ui-tree-view
+- Update to React v19
 - Add handler for offline
 - Add disconnect button
 - Add leave page handler to make an websocket event
@@ -78,8 +79,6 @@ This repository is monorepo done with NPM Workspaces
   - React v19 + Mantine
   - SocketIO to version 4.8.0+ (https://socket.io/docs/v4/changelog/4.8.0) for transport feature using
 - Add husky
-- Add shadcn?
-  - https://github.com/neigebaie/shadcn-ui-tree-view
 - Add home page with login
   - https://socket.io/get-started/private-messaging-part-1/
   - https://blog.logrocket.com/authentication-react-router-v6/
