@@ -1,13 +1,5 @@
 export default {
   rules: {
-    'no-unused-vars': ['error', { 'argsIgnorePattern': '^_' }],
-    'no-console': ['error', { allow: ['warn', 'error'] }],
-    'no-cond-assign': ['error', 'always'],
-    'no-unreachable': 'warn',
-    'no-extra-boolean-cast': ['error', { 'enforceForInnerExpressions': true }],
-    'no-implicit-coercion': ['error'],
-    
-
     '@stylistic/array-bracket-newline': ['error', 'never'],
     '@stylistic/array-bracket-spacing': ['error', 'never'],
     '@stylistic/array-element-newline': ['error', 'never'],

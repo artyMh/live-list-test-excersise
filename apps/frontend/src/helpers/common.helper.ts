@@ -1,3 +1,5 @@
-export function reloadPage(): void {
+export function reloadPage (): void {
+
   window.location.reload()
+
 }

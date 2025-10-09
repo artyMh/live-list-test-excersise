@@ -12,12 +12,16 @@ type ListStoreActions = {
 
 type ListStore = ListStoreState & ListStoreActions
 
-export const useListStore = create<ListStore>()((set) => {
+export const useListStore = create<ListStore>()(set => {
+
   const store: ListStore = {
     filterValue: 'all',
-  
-    setFilterValue: (filterValue: ListItemFilter) => set(() => ({ filterValue }))
+
+    setFilterValue: (filterValue: ListItemFilter) => set(() => ({
+      filterValue,
+    })),
   }
 
   return store
+
 })
