@@ -60,17 +60,17 @@ export default {
     '@stylistic/object-property-newline': ['off'],
     '@stylistic/one-var-declaration-per-line': ['error', 'initializations'],
     '@stylistic/operator-linebreak': ['error', 'before'],
-    '@stylistic/padded-blocks': ['error', 'always'],
+    '@stylistic/padded-blocks': ['error', 'never'],
     '@stylistic/padding-line-between-statements': ['error',
       {
-        'blankLine': 'always',
-        'prev': '*',
-        'next': 'return'
+        blankLine: 'always',
+        prev: '*',
+        next: 'return',
       },
       {
-        'blankLine': 'always',
-        'prev': ['case', 'default'],
-        'next': '*'
+        blankLine: 'always',
+        prev: ['case', 'default'],
+        next: '*',
       }
     ],
     '@stylistic/quote-props': ['off'],
@@ -80,7 +80,14 @@ export default {
     '@stylistic/semi-spacing': 'error',
     '@stylistic/semi-style': ['off'],
     '@stylistic/space-before-blocks': 'error',
-    '@stylistic/space-before-function-paren': 'error',
+    '@stylistic/space-before-function-paren': ['error',
+      {
+        anonymous: 'always',
+        named: 'never',
+        asyncArrow: 'always',
+        catch: 'always',
+      }
+    ],
     '@stylistic/space-in-parens': ['error', 'never'],
     '@stylistic/space-infix-ops': 'error',
     '@stylistic/space-unary-ops': 'error',

@@ -27,7 +27,8 @@ export default defineConfig([
     extends: ['js/recommended'],
     languageOptions: {
       globals: {
-        ...globals.node
+        ...globals.node,
+        JSX: 'readonly',
       },
       ...pluginJsx11y.flatConfigs.recommended.languageOptions,
     },

@@ -12,7 +12,7 @@
   "scripts": {
     "start:dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint \"src/**/*.ts\" --max-warnings 5 --report-unused-disable-directives",
+    "lint": "eslint src --max-warnings 5 --report-unused-disable-directives",
     "lint:fix": "eslint . --ext ts,tsx --fix",
     "preview": "vite preview"
   },
